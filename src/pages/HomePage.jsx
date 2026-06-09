@@ -37,7 +37,7 @@ export default function HomePage() {
       <div className={'sticky-cta' + (showCta ? ' show' : '')}>
         <div className="row">
           <button className="btn btn-signal" style={{ flex: 1 }} onClick={() => navigate('/quiz/start')}>
-            Start my free IQ test <span className="arrow">→</span>
+            Begin my IQ test <span className="arrow">→</span>
           </button>
         </div>
       </div>

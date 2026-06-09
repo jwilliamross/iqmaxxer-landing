@@ -398,6 +398,15 @@ h2.title {
 .step-lbl { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.12em;
   text-transform: uppercase; color: var(--signal); display: block; }
 
+/* ─── Quiz navigation buttons ─── */
+.quiz-nav {
+  display: flex; gap: 10px; margin-top: 24px;
+}
+.quiz-nav .btn {
+  flex: 1;          /* Back and Next share the row equally when both are shown */
+  min-width: 0;     /* prevent overflow on narrow screens */
+}
+
 /* ─── Quiz start onboarding page ─── */
 .quiz-start-page {
   min-height: calc(100vh - 64px);
