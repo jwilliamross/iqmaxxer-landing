@@ -7,12 +7,29 @@ import {
   completeSession,
 } from '../services/quizService.js';
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
+// ─── Session persistence ──────────────────────────────────────────────────────
+// Stored per browser tab (sessionStorage clears on tab close, not on refresh).
+// Prevents creating a second test_sessions row if the user refreshes mid-quiz.
+const QUIZ_KEY = 'iqmaxxer_quiz';
 
-function getPrompt(q) {
-  return q.question ?? q.prompt ?? q.text ?? q.body ?? q.title ?? '';
+function loadStored() {
+  try { return JSON.parse(sessionStorage.getItem(QUIZ_KEY) ?? 'null'); } catch { return null; }
+}
+function persistSession(sessionId, profile) {
+  try { sessionStorage.setItem(QUIZ_KEY, JSON.stringify({ sessionId, profile })); } catch {}
+}
+function clearStored() {
+  try { sessionStorage.removeItem(QUIZ_KEY); } catch {}
 }
 
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+// Column fallback: Supabase table uses 'prompt' per schema docs.
+function getPrompt(q) {
+  return q.prompt ?? q.question ?? q.text ?? q.body ?? q.title ?? '';
+}
+
+// Handles both jsonb options array and flat option_a/b/c/d columns.
 function parseOptions(q) {
   if (Array.isArray(q.options) && q.options.length > 0) {
     return q.options.map((o, i) => ({
@@ -25,17 +42,29 @@ function parseOptions(q) {
     .map((l) => ({ key: l.toUpperCase(), label: q[`option_${l}`] }));
 }
 
-// Returns true/false/null. Handles string key ('A') or integer index (0).
+// Returns true / false / null. Handles string key ('A') or integer index (0).
 function checkCorrect(q, selectedKey) {
   const correct = q.correct_answer;
   if (correct == null) return null;
-  if (typeof correct === 'string') {
-    return correct.trim().toUpperCase() === selectedKey.toUpperCase();
-  }
-  if (typeof correct === 'number') {
-    return correct === (selectedKey.charCodeAt(0) - 65);
-  }
+  if (typeof correct === 'string') return correct.trim().toUpperCase() === selectedKey.toUpperCase();
+  if (typeof correct === 'number') return correct === (selectedKey.charCodeAt(0) - 65);
   return null;
+}
+
+// Builds { [category]: { correct, total, pct } } from all answered questions.
+function buildCategoryScores(questions, finalPicked) {
+  const cats = {};
+  questions.forEach((q) => {
+    const cat = q.category ?? 'General';
+    if (!cats[cat]) cats[cat] = { correct: 0, total: 0, pct: 0 };
+    cats[cat].total++;
+    const key = finalPicked[q.id];
+    if (key != null && checkCorrect(q, key) === true) cats[cat].correct++;
+  });
+  Object.values(cats).forEach((c) => {
+    c.pct = c.total > 0 ? Math.round((c.correct / c.total) * 100) : 0;
+  });
+  return cats;
 }
 
 // ─── Screens ──────────────────────────────────────────────────────────────────
@@ -66,11 +95,7 @@ function ErrorScreen({ message, onRetry }) {
         <p style={{ color: 'var(--slate)', fontSize: 14.5, lineHeight: 1.6, margin: '0 0 26px' }}>
           {message}
         </p>
-        <button
-          className="btn btn-signal"
-          style={{ width: 'auto', padding: '14px 32px' }}
-          onClick={onRetry}
-        >
+        <button className="btn btn-signal" style={{ width: 'auto', padding: '14px 32px' }} onClick={onRetry}>
           Try again <span className="arrow">→</span>
         </button>
       </div>
@@ -96,21 +121,31 @@ function EmptyScreen({ onBack }) {
 // ─── Quiz page ────────────────────────────────────────────────────────────────
 
 export default function QuizPage() {
-  const navigate  = useNavigate();
-  const location  = useLocation();
-  const profile   = location.state ?? {}; // { gender, age, email } from onboarding
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const [questions,  setQuestions]  = useState([]);
-  const [status,     setStatus]     = useState('loading'); // 'loading'|'error'|'empty'|'ready'
-  const [errMsg,     setErrMsg]     = useState('');
-  const [current,    setCurrent]    = useState(0);
-  const [picked,     setPicked]     = useState({}); // { [questionId]: optionKey }
-  const [sessionId,  setSessionId]  = useState(null);
-  const [advancing,  setAdvancing]  = useState(false);
+  // Profile from onboarding; falls back to stored value if user refreshed
+  const stored   = loadStored();
+  const profile  = (location.state && Object.keys(location.state).length > 0)
+    ? location.state
+    : (stored?.profile ?? {});
 
-  // Prevent StrictMode double-mount from creating two session rows.
-  // React preserves refs across the simulated unmount/remount cycle.
-  const sessionInitiated = useRef(false);
+  const [questions, setQuestions] = useState([]);
+  const [status,    setStatus]    = useState('loading');
+  const [errMsg,    setErrMsg]    = useState('');
+  const [current,   setCurrent]   = useState(0);
+  const [picked,    setPicked]    = useState({}); // { [questionId]: optionKey }
+  const [sessionId, setSessionId] = useState(stored?.sessionId ?? null);
+  const [advancing, setAdvancing] = useState(false);
+  const [saveError, setSaveError] = useState('');
+
+  // Prevents StrictMode double-invoke AND cross-refresh duplication.
+  // If sessionStorage already has an ID, skip createSession entirely.
+  const sessionInitiated = useRef(Boolean(stored?.sessionId));
+
+  // Tracks which question IDs have already had an answer row inserted.
+  // Prevents duplicate rows if the user double-clicks Next on non-last questions.
+  const savedQIds = useRef(new Set());
 
   useEffect(() => {
     if (sessionInitiated.current) return;
@@ -121,8 +156,18 @@ export default function QuizPage() {
       age:    profile.age    ?? null,
       gender: profile.gender ?? null,
     }).then(({ sessionId: id, error }) => {
-      if (error) console.error('[QuizPage] createSession failed:', error.message);
-      if (id) setSessionId(id);
+      if (error) {
+        console.error('[QuizPage] createSession failed:', error.message);
+        setSaveError('Could not start your session. Your answers may not be saved.');
+      }
+      if (id) {
+        setSessionId(id);
+        persistSession(id, {
+          email:  profile.email  ?? null,
+          age:    profile.age    ?? null,
+          gender: profile.gender ?? null,
+        });
+      }
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -131,22 +176,12 @@ export default function QuizPage() {
     setErrMsg('');
     getQuestions()
       .then(({ data, error }) => {
-        if (error) {
-          setErrMsg(error.message ?? 'An unexpected error occurred.');
-          setStatus('error');
-          return;
-        }
-        if (!data || data.length === 0) {
-          setStatus('empty');
-          return;
-        }
+        if (error) { setErrMsg(error.message ?? 'An unexpected error occurred.'); setStatus('error'); return; }
+        if (!data || data.length === 0) { setStatus('empty'); return; }
         setQuestions(data);
         setStatus('ready');
       })
-      .catch((err) => {
-        setErrMsg(err.message ?? 'An unexpected error occurred.');
-        setStatus('error');
-      });
+      .catch((err) => { setErrMsg(err.message ?? 'An unexpected error occurred.'); setStatus('error'); });
   }, []);
 
   useEffect(() => { load(); }, [load]);
@@ -156,39 +191,40 @@ export default function QuizPage() {
   if (status === 'empty')   return <EmptyScreen onBack={() => navigate(-1)} />;
 
   // ── Derived values ────────────────────────────────────────────
-  const q        = questions[current];
-  const options  = parseOptions(q);
-  const sel      = picked[q.id];
-  const isLast   = current === questions.length - 1;
-  const progress = Math.round(((current + 1) / questions.length) * 100);
+  const q          = questions[current];
+  const options    = parseOptions(q);
+  const sel        = picked[q.id];
+  const isLast     = current === questions.length - 1;
+  const progress   = Math.round(((current + 1) / questions.length) * 100);
   const canAdvance = sel != null || options.length === 0;
 
-  // ── Advance: save answer, complete session on last question ───
+  // ── Advance ───────────────────────────────────────────────────
   const advance = async () => {
     if (!canAdvance || advancing) return;
 
     const selectedKey = sel;
     const isCorrect   = selectedKey != null ? checkCorrect(q, selectedKey) : null;
 
-    // Build save promise (no-op if session not ready or no selection)
-    const savePromise = sessionId && selectedKey != null
-      ? saveAnswer({ sessionId, questionId: q.id, selectedAnswer: selectedKey, isCorrect })
-      : Promise.resolve();
+    // Deduplication: only save once per question ID. Prevents double-click duplicates.
+    const alreadySaved = savedQIds.current.has(q.id);
+    let savePromise = Promise.resolve();
+    if (sessionId && selectedKey != null && !alreadySaved) {
+      savedQIds.current.add(q.id);
+      savePromise = saveAnswer({ sessionId, questionId: q.id, selectedAnswer: selectedKey, isCorrect });
+    }
 
     if (!isLast) {
-      // Fire-and-forget — don't block navigation to next question
+      // Fire-and-forget for non-last questions — don't block UI
       savePromise.catch((err) => console.error('[QuizPage] saveAnswer:', err));
       setCurrent((c) => c + 1);
       return;
     }
 
-    // Last question: await save, calculate score, complete session, navigate
+    // Last question: await everything, then navigate
     setAdvancing(true);
+    setSaveError('');
 
-    // Include current selection in score (state may not have flushed yet)
-    const finalPicked = selectedKey != null
-      ? { ...picked, [q.id]: selectedKey }
-      : { ...picked };
+    const finalPicked = selectedKey != null ? { ...picked, [q.id]: selectedKey } : { ...picked };
 
     const score = questions.reduce((acc, question) => {
       const key = finalPicked[question.id];
@@ -196,15 +232,25 @@ export default function QuizPage() {
       return acc + (checkCorrect(question, key) === true ? 1 : 0);
     }, 0);
 
+    const categoryScores = buildCategoryScores(questions, finalPicked);
+
     try {
       await savePromise;
       if (sessionId) {
-        await completeSession({ sessionId, score, totalQuestions: questions.length });
+        const { error: completeErr } = await completeSession({
+          sessionId,
+          score,
+          totalQuestions: questions.length,
+          categoryScores,
+        });
+        if (completeErr) setSaveError('Your score may not have saved. Your result is still shown below.');
       }
     } catch (err) {
       console.error('[QuizPage] Failed to complete session:', err);
-      // Still navigate — don't block the user over a network failure
+      setSaveError('Your score may not have saved. Your result is still shown below.');
     }
+
+    clearStored();
 
     navigate('/results', {
       state: {
@@ -212,11 +258,11 @@ export default function QuizPage() {
         sessionId,
         score,
         totalQuestions: questions.length,
+        categoryScores,
       },
     });
   };
 
-  // ── Render ────────────────────────────────────────────────────
   const prompt = getPrompt(q);
 
   return (
@@ -230,11 +276,9 @@ export default function QuizPage() {
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 28 }}>
           <span className="step-lbl">
             Question {current + 1} of {questions.length}
-            {q.sub_scale ? ` · ${q.sub_scale}` : ''}
+            {q.category ? ` · ${q.category}` : ''}
           </span>
-          <span className="step-lbl" style={{ color: 'var(--muted)' }}>
-            {progress}%
-          </span>
+          <span className="step-lbl" style={{ color: 'var(--muted)' }}>{progress}%</span>
         </div>
 
         {/* Question prompt */}
@@ -253,7 +297,7 @@ export default function QuizPage() {
               <button
                 key={o.key}
                 className={`opt${sel === o.key ? ' sel' : ''}`}
-                onClick={() => setPicked((p) => ({ ...p, [q.id]: o.key }))}
+                onClick={() => !advancing && setPicked((p) => ({ ...p, [q.id]: o.key }))}
                 disabled={advancing}
               >
                 <b>{o.key}</b>
@@ -261,6 +305,13 @@ export default function QuizPage() {
               </button>
             ))}
           </div>
+        )}
+
+        {/* Save error */}
+        {saveError && (
+          <p style={{ color: '#DC2626', fontSize: 13, marginBottom: 8, textAlign: 'center' }}>
+            {saveError}
+          </p>
         )}
 
         {/* Navigation */}
@@ -280,12 +331,8 @@ export default function QuizPage() {
             onClick={advance}
             disabled={!canAdvance || advancing}
           >
-            {advancing
-              ? 'Saving…'
-              : isLast
-              ? 'See my results'
-              : 'Next'}{' '}
-            {!advancing && <span className="arrow">→</span>}
+            {advancing ? 'Saving…' : isLast ? 'See my results' : 'Next'}
+            {!advancing && <span className="arrow"> →</span>}
           </button>
         </div>
 

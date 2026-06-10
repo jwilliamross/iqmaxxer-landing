@@ -1,14 +1,6 @@
 import { supabase } from '../lib/supabaseClient.js';
 
-// ─── questions ────────────────────────────────────────────────
-// Expected schema for public.questions:
-//   id             integer PRIMARY KEY
-//   question       text   (also handles: prompt, text, body, title)
-//   options        jsonb  -- ["Paris","London",...] or [{"text":"..."},...]
-//                  OR flat columns: option_a text, option_b text, option_c text, option_d text
-//   correct_answer text   -- option key e.g. "A","B","C","D"  (or integer index 0-3)
-//   sub_scale      text   -- optional: "verbal" | "spatial" | "pattern" | "memory"
-
+// ─── questions ────────────────────────────────────────────────────────────────
 export async function getQuestions() {
   if (!supabase) {
     return {
@@ -23,17 +15,8 @@ export async function getQuestions() {
   return { data, error };
 }
 
-// ─── test_sessions ────────────────────────────────────────────
-// Creates ONE row per quiz attempt. Call once when /quiz mounts.
-// Saves email, age, and gender in the same row.
-//
-// test_sessions table must already have these columns:
-//   email   text
-//   age     integer (or smallint / numeric)
-//   gender  text
-// All other columns (status, score, total_questions, completed_at) are
-// updated later by completeSession().
-
+// ─── test_sessions ────────────────────────────────────────────────────────────
+// Creates ONE row per quiz attempt. All three profile fields saved together.
 export async function createSession({ email, age, gender }) {
   if (!supabase) {
     console.warn('[quizService] createSession: Supabase not configured.');
@@ -53,10 +36,7 @@ export async function createSession({ email, age, gender }) {
   return { sessionId: data?.id ?? null, error };
 }
 
-// ─── answers ─────────────────────────────────────────────────
-// Inserts one row per answer submitted.
-// answers columns: session_id, question_id, selected_answer, is_correct
-
+// ─── answers ──────────────────────────────────────────────────────────────────
 export async function saveAnswer({ sessionId, questionId, selectedAnswer, isCorrect }) {
   if (!supabase || !sessionId) return { error: null };
   const { error } = await supabase
@@ -71,21 +51,50 @@ export async function saveAnswer({ sessionId, questionId, selectedAnswer, isCorr
   return { error };
 }
 
-// ─── complete session ─────────────────────────────────────────
-// Called once when the user submits the last question.
-// Updates test_sessions: status, score, total_questions, completed_at.
-
-export async function completeSession({ sessionId, score, totalQuestions }) {
+// ─── complete session ─────────────────────────────────────────────────────────
+// Marks the session done. Tries to save category_scores (jsonb) if the column exists.
+// If not, falls back gracefully and logs the SQL needed to add it.
+export async function completeSession({ sessionId, score, totalQuestions, categoryScores }) {
   if (!supabase || !sessionId) return { error: null };
+
+  const base = {
+    status:          'completed',
+    score,
+    total_questions: totalQuestions,
+    completed_at:    new Date().toISOString(),
+  };
+
+  // Try with category_scores first
+  if (categoryScores && Object.keys(categoryScores).length > 0) {
+    const { error: errWith } = await supabase
+      .from('test_sessions')
+      .update({ ...base, category_scores: categoryScores })
+      .eq('id', sessionId);
+
+    if (!errWith) return { error: null };
+
+    // 42703 = undefined_column in PostgreSQL
+    const isMissingColumn =
+      errWith.code === '42703' ||
+      (errWith.message ?? '').toLowerCase().includes('category_scores');
+
+    if (!isMissingColumn) {
+      console.error('[quizService] completeSession:', errWith.message);
+      return { error: errWith };
+    }
+
+    console.warn(
+      '[quizService] category_scores column not found — run this SQL in Supabase:\n' +
+      'ALTER TABLE public.test_sessions ADD COLUMN IF NOT EXISTS category_scores jsonb;'
+    );
+  }
+
+  // Fallback: save without category_scores
   const { error } = await supabase
     .from('test_sessions')
-    .update({
-      status:          'completed',
-      score,
-      total_questions: totalQuestions,
-      completed_at:    new Date().toISOString(),
-    })
+    .update(base)
     .eq('id', sessionId);
+
   if (error) console.error('[quizService] completeSession:', error.message);
   return { error };
 }

@@ -571,3 +571,76 @@ h2.title {
   .get-card { flex: unset; }
   .swipe-hint { display: none; }
 }
+
+/* ─── Results page — free summary ─────────────────────────── */
+.results-body {
+  width: 100%; max-width: 520px; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center;
+}
+
+/* Category breakdown */
+.cat-section { width: 100%; margin-top: 24px; text-align: left; }
+.cat-section-label {
+  font-family: "JetBrains Mono", monospace; font-size: 10px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+  margin: 0 0 14px; display: block;
+}
+.cat-rows { display: flex; flex-direction: column; gap: 10px; }
+.cat-row { display: flex; align-items: center; gap: 10px; }
+.cat-name {
+  font-size: 13px; font-weight: 600; color: var(--ink);
+  flex: 0 0 110px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.cat-bar-wrap {
+  flex: 1; height: 6px; background: var(--line); border-radius: 99px; overflow: hidden;
+}
+.cat-bar-fill {
+  height: 100%; background: var(--signal); border-radius: 99px;
+  transition: width .5s cubic-bezier(.4,0,.2,1);
+}
+.cat-pct {
+  flex: 0 0 38px; text-align: right;
+  font-family: "JetBrains Mono", monospace; font-size: 11px;
+  font-weight: 700; color: var(--muted);
+}
+
+/* ─── Results page — locked section ──────────────────────── */
+.results-locked {
+  width: 100%; max-width: 520px; margin: 32px auto 0;
+  border: 1.5px solid var(--line); border-radius: 20px; overflow: hidden;
+}
+.locked-header {
+  background: var(--paper-2); border-bottom: 1.5px solid var(--line);
+  padding: 16px 22px; display: flex; align-items: center; gap: 10px;
+}
+.locked-header-icon { color: var(--signal); flex-shrink: 0; }
+.locked-header-title { font-size: 15px; font-weight: 800; color: var(--ink); letter-spacing: -0.02em; }
+.locked-body { padding: 20px 22px 24px; }
+.locked-list { list-style: none; margin: 0 0 22px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.locked-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 14px; color: var(--slate); line-height: 1.4; }
+.locked-list li svg { color: var(--signal); flex-shrink: 0; margin-top: 2px; }
+
+/* ─── Checkout page ───────────────────────────────────────── */
+.checkout-page {
+  min-height: calc(100vh - 64px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 48px 20px 100px;
+}
+.checkout-card { width: 100%; max-width: 460px; border-radius: 22px; overflow: hidden; border: 1.5px solid var(--line); }
+.checkout-top {
+  background: linear-gradient(140deg, #1a3fa0 0%, #2E6CF6 100%);
+  padding: 28px 28px 26px; color: #fff;
+}
+.checkout-top .tag { color: rgba(255,255,255,0.65); margin-bottom: 10px; }
+.checkout-top h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 18px; }
+.checkout-price-row { display: flex; align-items: baseline; gap: 4px; }
+.checkout-price-row .sym { font-size: 22px; font-weight: 700; opacity: 0.9; }
+.checkout-price-row .amt { font-size: 52px; font-weight: 900; letter-spacing: -0.04em; line-height: 1; }
+.checkout-price-note { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 6px; }
+.checkout-body { padding: 24px 28px 28px; background: var(--paper); }
+.checkout-features { list-style: none; margin: 0 0 24px; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+.checkout-features li { display: flex; align-items: flex-start; gap: 9px; font-size: 14.5px; color: var(--slate); line-height: 1.4; }
+.checkout-features li svg { flex-shrink: 0; margin-top: 2px; }
+.checkout-notice { text-align: center; font-size: 12.5px; color: var(--muted); margin-top: 14px; line-height: 1.5; }
+.checkout-back { display: block; text-align: center; font-size: 13px; color: var(--slate); margin-top: 16px; cursor: pointer; }
+.checkout-back:hover { color: var(--ink); }
