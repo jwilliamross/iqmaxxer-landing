@@ -6,6 +6,7 @@ import {
   saveAnswer,
   completeSession,
 } from '../services/quizService.js';
+import { checkCorrect, calculateScore } from '../lib/scoringUtils.js';
 
 // ─── Session persistence ──────────────────────────────────────────────────────
 // Stored per browser tab (sessionStorage clears on tab close, not on refresh).
@@ -42,30 +43,8 @@ function parseOptions(q) {
     .map((l) => ({ key: l.toUpperCase(), label: q[`option_${l}`] }));
 }
 
-// Returns true / false / null. Handles string key ('A') or integer index (0).
-function checkCorrect(q, selectedKey) {
-  const correct = q.correct_answer;
-  if (correct == null) return null;
-  if (typeof correct === 'string') return correct.trim().toUpperCase() === selectedKey.toUpperCase();
-  if (typeof correct === 'number') return correct === (selectedKey.charCodeAt(0) - 65);
-  return null;
-}
-
-// Builds { [category]: { correct, total, pct } } from all answered questions.
-function buildCategoryScores(questions, finalPicked) {
-  const cats = {};
-  questions.forEach((q) => {
-    const cat = q.category ?? 'General';
-    if (!cats[cat]) cats[cat] = { correct: 0, total: 0, pct: 0 };
-    cats[cat].total++;
-    const key = finalPicked[q.id];
-    if (key != null && checkCorrect(q, key) === true) cats[cat].correct++;
-  });
-  Object.values(cats).forEach((c) => {
-    c.pct = c.total > 0 ? Math.round((c.correct / c.total) * 100) : 0;
-  });
-  return cats;
-}
+// NOTE: scoring logic (checkCorrect, weighted score, category scores) lives in
+// ../lib/scoringUtils.js so it can be reused and unit-tested independently.
 
 // ─── Screens ──────────────────────────────────────────────────────────────────
 
@@ -226,21 +205,18 @@ export default function QuizPage() {
 
     const finalPicked = selectedKey != null ? { ...picked, [q.id]: selectedKey } : { ...picked };
 
-    const score = questions.reduce((acc, question) => {
-      const key = finalPicked[question.id];
-      if (key == null) return acc;
-      return acc + (checkCorrect(question, key) === true ? 1 : 0);
-    }, 0);
-
-    const categoryScores = buildCategoryScores(questions, finalPicked);
+    // Stage 2 scoring: raw count + difficulty-weighted score + per-category breakdown.
+    const { rawScore, weightedScore, maxWeightedScore, categoryScores } =
+      calculateScore(questions, finalPicked);
 
     try {
       await savePromise;
       if (sessionId) {
         const { error: completeErr } = await completeSession({
           sessionId,
-          score,
+          score: rawScore,
           totalQuestions: questions.length,
+          weightedScore,
           categoryScores,
         });
         if (completeErr) setSaveError('Your score may not have saved. Your result is still shown below.');
@@ -256,8 +232,10 @@ export default function QuizPage() {
       state: {
         ...profile,
         sessionId,
-        score,
+        score: rawScore,
         totalQuestions: questions.length,
+        weightedScore,
+        maxWeightedScore,
         categoryScores,
       },
     });
