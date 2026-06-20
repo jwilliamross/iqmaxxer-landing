@@ -34,9 +34,10 @@ export default function CheckoutPage() {
           <h2>One-time report unlock</h2>
           <div className="checkout-price-row">
             <span className="sym">$</span>
-            <span className="amt">9.99</span>
+            <span className="amt">14.99</span>
+            <span className="sym" style={{ fontSize: 16, alignSelf: 'flex-end', marginBottom: 6 }}>CAD</span>
           </div>
-          <p className="checkout-price-note">One-time payment · No subscription · No hidden fees</p>
+          <p className="checkout-price-note">One-time payment in CAD · No subscription · No hidden fees</p>
         </div>
 
         {/* White body */}
