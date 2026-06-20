@@ -16,7 +16,7 @@ export async function getQuestions() {
 }
 
 // ─── test_sessions ────────────────────────────────────────────────────────────
-// Creates ONE row per quiz attempt. All three profile fields saved together.
+// Creates ONE row per quiz attempt. Call once when /quiz mounts.
 export async function createSession({ email, age, gender }) {
   if (!supabase) {
     console.warn('[quizService] createSession: Supabase not configured.');
@@ -52,9 +52,15 @@ export async function saveAnswer({ sessionId, questionId, selectedAnswer, isCorr
 }
 
 // ─── complete session ─────────────────────────────────────────────────────────
-// Marks the session done. Tries to save category_scores (jsonb) if the column exists.
-// If not, falls back gracefully and logs the SQL needed to add it.
-export async function completeSession({ sessionId, score, totalQuestions, categoryScores }) {
+// Marks session complete. Saves weighted_score and category_scores if the
+// Stage 2B SQL columns exist. Falls back to base fields only if they don't.
+export async function completeSession({
+  sessionId,
+  score,
+  totalQuestions,
+  weightedScore,
+  categoryScores,
+}) {
   if (!supabase || !sessionId) return { error: null };
 
   const base = {
@@ -64,19 +70,25 @@ export async function completeSession({ sessionId, score, totalQuestions, catego
     completed_at:    new Date().toISOString(),
   };
 
-  // Try with category_scores first
+  // Build the extra fields if Stage 2B columns exist
+  const extras = {};
+  if (weightedScore != null) extras.weighted_score = weightedScore;
   if (categoryScores && Object.keys(categoryScores).length > 0) {
+    extras.category_scores = categoryScores;
+  }
+
+  if (Object.keys(extras).length > 0) {
     const { error: errWith } = await supabase
       .from('test_sessions')
-      .update({ ...base, category_scores: categoryScores })
+      .update({ ...base, ...extras })
       .eq('id', sessionId);
 
     if (!errWith) return { error: null };
 
-    // 42703 = undefined_column in PostgreSQL
+    // 42703 = undefined_column in PostgreSQL — Stage 2B SQL not yet run
     const isMissingColumn =
       errWith.code === '42703' ||
-      (errWith.message ?? '').toLowerCase().includes('category_scores');
+      (errWith.message ?? '').toLowerCase().includes('column');
 
     if (!isMissingColumn) {
       console.error('[quizService] completeSession:', errWith.message);
@@ -84,12 +96,14 @@ export async function completeSession({ sessionId, score, totalQuestions, catego
     }
 
     console.warn(
-      '[quizService] category_scores column not found — run this SQL in Supabase:\n' +
-      'ALTER TABLE public.test_sessions ADD COLUMN IF NOT EXISTS category_scores jsonb;'
+      '[quizService] weighted_score / category_scores columns not found.\n' +
+      'Run Stage 2B SQL in Supabase:\n' +
+      '  ALTER TABLE public.test_sessions ADD COLUMN IF NOT EXISTS category_scores jsonb;\n' +
+      '  ALTER TABLE public.test_sessions ADD COLUMN IF NOT EXISTS weighted_score numeric(6,2);'
     );
   }
 
-  // Fallback: save without category_scores
+  // Fallback: save base fields only (identical to original behavior)
   const { error } = await supabase
     .from('test_sessions')
     .update(base)

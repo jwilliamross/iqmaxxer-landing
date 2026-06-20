@@ -1,0 +1,263 @@
+{
+  "_metadata": {
+    "description": "Draft / candidate question bank for IQMaxxer. Not wired into the live quiz and not seeded into Supabase. Preserves accepted candidate items in the repo.",
+    "notes": [
+      "ABS-MAT-003 v2 accepted as Abstract Reasoning Micro-Batch 1 candidate. Proof image must be regenerated later."
+    ]
+  },
+  "items": [
+    {
+      "item_id": "ABS-MAT-003",
+      "version": 2,
+      "status": "candidate",
+      "user_category": "Abstract Reasoning",
+      "technical_construct": "Inductive reasoning",
+      "subskill": "Matrix rule integration with a parametric (state-modulating) rule",
+      "item_format": "matrix_3x3",
+      "difficulty_target": 4,
+      "difficulty_rationale": "Two rules that are not separable: an arrow rotates clockwise across each row (Rule A), but the SIZE of each turn is set by a second feature in the cell — the number of bars beneath the dial — at bars x 45 degrees (Rule B). Because the bar count differs from cell to cell, the rotation step is different in every row, so the arrow's path cannot be predicted by any fixed-step reading; Rule A is uncomputable without first reading Rule B. This is a genuine modulating interaction (one rule parameterises the other) rather than two rules resolving in parallel, which is what made v1 too easy. It sits clearly above v1's independent Latin-square + count and below ABS-MAT-004's Boolean (XOR) discovery: there is no logical operator to invent, only a parametric coupling to notice, placing it at the upper-middle of the rule-token/solution-rate band.",
+      "prompt": "Which option completes the 3 by 3 pattern?",
+      "option_a": "asset: ABS-MAT-003-OPTIONS, tile A",
+      "option_b": "asset: ABS-MAT-003-OPTIONS, tile B",
+      "option_c": "asset: ABS-MAT-003-OPTIONS, tile C",
+      "option_d": "asset: ABS-MAT-003-OPTIONS, tile D",
+      "correct_answer": "A",
+      "solution": "Each cell is a round dial with a single arrow pointing in one of eight compass directions (N, NE, E, SE, S, SW, W, NW = 45-degree steps clockwise from up), plus a small group of 1 to 3 bars under the dial. Two rules interact. Rule A: along each row the arrow rotates CLOCKWISE. Rule B: the number of bars in a cell sets how far the arrow turns when LEAVING that cell — turn = (bars) x 45 degrees. So the magnitude of each rotation is read off the bar count, not assumed. Verify on the given rows: Row 1 N(1 bar)->+45->NE(3 bars)->+135->S. Row 2 E(2 bars)->+90->S(1 bar)->+45->SW. Row 3 SE(3 bars)->+135->W(2 bars)->+90->? . The final step leaves the (3,2) cell, which has 2 bars, so the turn is 2 x 45 = 90 degrees clockwise: W rotated 90 degrees clockwise is N (straight up). The answer is an arrow pointing up: tile A. (Note: the bars govern only the OUTGOING turn, so the bottom-right cell's own bar count is irrelevant and the option tiles therefore differ only in arrow direction.)",
+      "distractor_rationales": {
+        "A": "Correct: the (3,2) cell has 2 bars, so the arrow turns 2 x 45 = 90 degrees clockwise from W, giving N (up). Requires both rules — clockwise rotation AND reading the bar count to size the turn.",
+        "B": "NE (up-right): Wrong Principle — found the rotation but treated the step as a fixed turn, reusing the 135-degree step seen earlier in row 3 (W + 135 = NE). This is where a solver who never realises the bar count sets the step size lands.",
+        "C": "S (down): Wrong Principle — read the bar count correctly (magnitude 90 degrees) but rotated the wrong way, anti-clockwise, giving W - 90 = S.",
+        "D": "NW (up-left): Incomplete Correlate — noticed the arrow turns clockwise but ignored that the bar count scales the turn, applying a single minimum 45-degree step (W + 45 = NW)."
+      },
+      "expected_time_seconds": 95,
+      "minimum_reasonable_seconds": 22,
+      "timing_affects_score": false,
+      "visual_asset_required": true,
+      "visual_asset_id": "ABS-MAT-003-MAIN",
+      "visual_asset_spec": {
+        "type": "svg",
+        "main_figure_description": "A 3x3 grid (cell 150x150, gap 12, light grid-line borders #D4D8E0, white ground), tokens from design-tokens.json. In each cell: (1) a DIAL = a thin circle (stroke 2.5 ink #14181F) centred at cell-local (75,60), radius 40; (2) inside it a bold ARROW (stroke 2.5, round cap/join, ink) from the dial centre (75,60) to a tip on the perimeter, with a small solid triangular arrowhead (~12px) at the tip — the arrow stays entirely inside the dial; (3) beneath the dial a COUNT BAND = a horizontal row of 1 to 3 small solid bars (each 8 wide x 20 tall, ink fill, 8px gap), centred on x=75, occupying y 110-132, never overlapping the dial. Arrow direction is given as a compass point, angle measured CLOCKWISE from straight up: N=0, NE=45, E=90, SE=135, S=180, SW=225, W=270, NW=315; tip = (75 + 40*sin(angle), 60 - 40*cos(angle)). Contents by (row,col) as DIRECTION / bars: (1,1) N / 1; (1,2) NE / 3; (1,3) S / 2; (2,1) E / 2; (2,2) S / 1; (2,3) SW / 3; (3,1) SE / 3; (3,2) W / 2; (3,3) EMPTY cell containing only a muted grey '?' (#9AA2B1), no dial, no bars. Keep all dials, arrow weights and bar sizes identical so only direction and bar count vary.",
+        "option_descriptions": {
+          "A": "A dial with an arrow pointing straight up (N). No bars.",
+          "B": "A dial with an arrow pointing up and to the right (NE). No bars.",
+          "C": "A dial with an arrow pointing straight down (S). No bars.",
+          "D": "A dial with an arrow pointing up and to the left (NW). No bars."
+        },
+        "recommended_width": 520,
+        "recommended_height": 520,
+        "mobile_behavior": "Scale grid to container width; arrow stroke, arrowhead and bars are sized in viewBox units so they stay crisp and >=1px at ~360px render width. Option tiles render in a 2-column grid below ~420px. Zoom enabled, because eight arrow directions must be distinguishable — edge-pointing arrows (N/E/S/W) land on a dial edge midpoint and corner-pointing arrows (NE/SE/SW/NW) land between them, so the bold arrowhead is what separates adjacent directions on a small screen. Option tiles deliberately show the dial and arrow only (no count band), because the bars are an operator on the outgoing turn and the answer cell has no successor cell.",
+        "alt_text": "A three by three grid of round dials, each showing an arrow pointing in some direction with a small group of bars beneath it; the bottom-right cell is empty with a question mark."
+      },
+      "display_spec": {
+        "component_type": "MatrixQuestion",
+        "desktop_answer_columns": 4,
+        "mobile_answer_columns": 2,
+        "zoom_enabled": true,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Multi-rule 3x3 matrices are the canonical measure of fluid/inductive reasoning. A parametric rule, where one cell attribute sets the magnitude of another attribute's transformation, taxes rule induction plus the working-memory step of carrying a variable operator across the row — the integration load Carpenter, Just & Shell identified as the driver of matrix difficulty. Because the operator changes per cell, the item resists the surface heuristic (assume a fixed transformation) that lets weaker solvers pass two-independent-rule matrices.",
+      "knowledge_requirements": "None beyond counting to three, recognising eight compass directions of an arrow, and the idea that an arrow can turn.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Rotation direction: every observed transition is consistent with CLOCKWISE by (source-cell bars x 45 degrees) and inconsistent with anti-clockwise (e.g. N->NE in row 1 is +45 CW, not -45), so direction is fixed; the AC reading is captured as distractor C. Step magnitude: the per-row steps are (45,135), (90,45), (135,90) — there is no single constant step across the matrix, so a fixed-step heuristic cannot fit all visible cells and provides no consistent value; the only reading that fits every transition is bars x 45. Checked for a coincidental path to the key: a fixed-step solver measuring the one visible step in row 3 (SE->W = +135) and repeating it gives NE (B), not N; a unit-step solver gives NW (D); a correct-magnitude-but-reversed solver gives S (C). N is reachable only by correctly reading the (3,2) bar count (2) and rotating CW 90 degrees, i.e. only by using both rules together. The bottom-right cell's own bar count is logically inert (no outgoing step), so options vary by arrow direction alone and exactly one option (A, arrow up) satisfies the combined rule."
+      },
+      "source_basis": [
+        "Two-rule matrix construction and rule taxonomy; rotation as a figural rule (Carpenter, Just & Shell 1990)",
+        "Rule-token count and rule type as primary drivers of matrix difficulty (Primi 2001; Embretson 1998)",
+        "Raven-style distractor taxonomy — Repetition / Wrong Principle / Incomplete Correlate — used to map each option to a specific partial-rule error"
+      ],
+      "review_status": "revised"
+    },
+    {
+      "item_id": "ABS-MAT-004",
+      "version": 2,
+      "status": "candidate",
+      "user_category": "Abstract Reasoning",
+      "technical_construct": "Inductive reasoning",
+      "subskill": "Matrix rule integration with a Boolean operation (XOR)",
+      "item_format": "matrix_3x3",
+      "difficulty_target": 4,
+      "difficulty_rationale": "Two rules: an exclusive-or (XOR) on the inner marks of each row, plus an independent distribution-of-three (Latin square) on the frame shape. Discovering the XOR is the genuinely demanding step, and the OR and AND distractors make the Boolean reading discriminating. However, the two rules resolve in PARALLEL rather than modulating each other — the frame can be solved entirely on its own (Latin square) and the marks entirely on their own (XOR), and neither depends on the other's value. The XOR is also demonstrated cleanly and identically in both prior rows, so by the test cell the operation has been shown twice before it must be applied. That puts it at the top of Difficulty 4 — clearly harder than a count-or-rotation matrix because of the non-obvious logical operation, but short of true Difficulty 5, which would require an interacting/parametric rule, an operation that is not pre-demonstrated, or a higher rule-token load.",
+      "prompt": "Which option completes the 3 by 3 pattern?",
+      "option_a": "asset: ABS-MAT-004-OPTIONS, tile A",
+      "option_b": "asset: ABS-MAT-004-OPTIONS, tile B",
+      "option_c": "asset: ABS-MAT-004-OPTIONS, tile C",
+      "option_d": "asset: ABS-MAT-004-OPTIONS, tile D",
+      "correct_answer": "C",
+      "solution": "Each cell has a FRAME (circle, square or diamond) and up to three small filled squares in three fixed interior slots (left, centre, right). Rule 1 (inner marks): in every row, the third cell shows exactly the slots that are filled in the first cell OR the second cell but NOT both — an exclusive-or. Row 3 has first cell with left+centre filled and second cell with centre+right filled; the slots filled in exactly one of them are LEFT and RIGHT (centre is filled in both, so it cancels). Rule 2 (frame): each row contains a circle, a square and a diamond once, arranged as a Latin square; row 3 already shows a diamond and a circle, so the missing frame is a SQUARE. The answer is a square frame with the left and right slots filled and the centre empty: tile C.",
+      "distractor_rationales": {
+        "A": "Square frame with all three slots filled: computes the inclusive-OR (or the union) instead of the exclusive-or — the single most common Boolean error.",
+        "B": "Square frame with only the centre slot filled: the slot that XOR actually cancels; results from taking the AND (the overlap) instead of the XOR.",
+        "C": "Correct: square frame (forced by the Latin square) with left and right filled, centre empty (the XOR of the row's first two cells).",
+        "D": "Circle frame with left and right filled: solves the XOR correctly but ignores the frame rule, repeating an adjacent frame (incomplete correlate)."
+      },
+      "expected_time_seconds": 130,
+      "minimum_reasonable_seconds": 25,
+      "timing_affects_score": false,
+      "visual_asset_required": true,
+      "visual_asset_id": "ABS-MAT-004-MAIN",
+      "visual_asset_spec": {
+        "type": "svg",
+        "main_figure_description": "A 3x3 grid (cell 150x150, gap 12, light borders, white ground). Each cell shows a large centred FRAME outline (stroke 2.5, ink) — a circle, a square, or a diamond — about 92px across. Inside each frame are three fixed horizontal SLOT positions (left, centre, right), each either a small filled square (~20px, ink) when filled or empty. Encode filled slots as a triple [left,centre,right] with 1=filled, 0=empty. Contents by (row,col) as FRAME / triple: (1,1) circle /[1,0,1]; (1,2) square /[0,1,1]; (1,3) diamond /[1,1,0]; (2,1) square /[1,1,0]; (2,2) diamond /[1,0,0]; (2,3) circle /[0,1,0]; (3,1) diamond /[1,1,0]; (3,2) circle /[0,1,1]; (3,3) EMPTY cell with a muted grey '?' only. The diamond frame is a square rotated 45 degrees. Keep all three frame types optically similar in width so the inner slots align.",
+        "option_descriptions": {
+          "A": "A square frame with all three interior slots filled.",
+          "B": "A square frame with only the centre slot filled.",
+          "C": "A square frame with the left and right slots filled and the centre empty.",
+          "D": "A circle frame with the left and right slots filled and the centre empty."
+        },
+        "recommended_width": 540,
+        "recommended_height": 540,
+        "mobile_behavior": "Scale grid to container; inner slots remain legible because they are sized in viewBox units. Options render 2-up below ~420px with zoom enabled (this is the hardest item to read on a phone, so zoom matters).",
+        "alt_text": "A three by three grid of framed shapes with small marks inside them; the bottom-right cell is empty with a question mark."
+      },
+      "display_spec": {
+        "component_type": "MatrixQuestion",
+        "desktop_answer_columns": 4,
+        "mobile_answer_columns": 2,
+        "zoom_enabled": true,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "An XOR-over-elements matrix with a second independent distribution rule is one of the stronger figural items in this set: it taxes rule induction and the discovery of a non-obvious logical operation, then asks the solver to hold two rules at once. The two rules are independent rather than interacting, and the XOR is pre-demonstrated in the earlier rows, so it represents a strong upper-Difficulty-4 item rather than a ceiling-level one.",
+      "knowledge_requirements": "None beyond recognizing presence/absence of marks and three frame shapes. No knowledge of the word 'XOR' is required or shown.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Verified the XOR holds in rows 1 and 2 as well: row1 [1,0,1] XOR [0,1,1] = [1,1,0] (matches cell 1,3); row2 [1,1,0] XOR [1,0,0] = [0,1,0] (matches cell 2,3). So the rule is consistently demonstrated before the test cell. Confirmed the frame arrangement is a Latin square forcing 'square' for (3,3). Checked OR and AND readings: OR gives [1,1,1] (tile A), AND gives [0,1,0] (tile B) — both are present as distractors and both are wrong, so the item discriminates XOR from the two adjacent Boolean operations. Exactly one option satisfies both rules. Difficulty note: the two rules resolve in parallel (the frame and the marks are independently solvable), and the XOR is shown twice before the test cell, which is why this is rated Difficulty 4 rather than 5."
+      },
+      "source_basis": [
+        "Boolean (exclusive-or) figural rules in advanced matrix items (Mensa Norway item progression; Carpenter, Just & Shell 1990 rule taxonomy)",
+        "Rule-token count as a primary driver of matrix difficulty, r approximately -0.57 with solution rate (Carpenter, Just & Shell 1990)"
+      ],
+      "review_status": "revised"
+    },
+    {
+      "item_id": "ABS-ANA-001",
+      "version": 1,
+      "status": "candidate",
+      "user_category": "Abstract Reasoning",
+      "technical_construct": "Inductive reasoning",
+      "subskill": "Analogical mapping (figure analogy)",
+      "item_format": "figure_analogy",
+      "difficulty_target": 2,
+      "difficulty_rationale": "A single transformation (90 degrees clockwise rotation) applied to an asymmetric figure. Distractors cover the two most common rotation errors (over-rotation to 180, and reflection-vs-rotation confusion), lifting it above a trivial one-step item without adding a second rule.",
+      "prompt": "The first figure changes into the second in a particular way. Apply the same change to the third figure. Which option is the result?",
+      "option_a": "asset: ABS-ANA-001-OPTIONS, tile A",
+      "option_b": "asset: ABS-ANA-001-OPTIONS, tile B",
+      "option_c": "asset: ABS-ANA-001-OPTIONS, tile C",
+      "option_d": "asset: ABS-ANA-001-OPTIONS, tile D",
+      "correct_answer": "B",
+      "solution": "The change from the first figure to the second is a 90 degrees clockwise rotation: the small tab moves from the top edge to the right edge. Applying a 90 degrees clockwise rotation to the third figure (tab on the left edge) moves the tab to the top edge. That is tile B.",
+      "distractor_rationales": {
+        "A": "Tab on the right edge: results from rotating counter-clockwise, or from reflecting the figure instead of rotating it.",
+        "B": "Correct. A 90 degrees clockwise rotation maps a left-edge tab to the top edge.",
+        "C": "Tab on the bottom edge: results from over-rotating by 180 degrees.",
+        "D": "Tab on the left edge: no transformation applied; simply repeats the orientation of the third figure."
+      },
+      "expected_time_seconds": 35,
+      "minimum_reasonable_seconds": 8,
+      "timing_affects_score": false,
+      "visual_asset_required": true,
+      "visual_asset_id": "ABS-ANA-001-MAIN",
+      "visual_asset_spec": {
+        "type": "svg",
+        "main_figure_description": "A single horizontal stimulus strip on a white ground. Left group: figure 1 is a square (outline, stroke 2.5, ink) with a small solid filled triangular tab attached to the OUTSIDE of its TOP edge, centred; then a rightward arrow (stroke 2.5); then figure 2 is the same square with the solid tab attached to the OUTSIDE of its RIGHT edge, centred. A vertical divider of two stacked dots (::) separates the groups. Right group: figure 3 is the same square with the solid tab attached to the OUTSIDE of its LEFT edge, centred; then a rightward arrow; then a question-mark box (square outline with rounded corners, a '?' in muted grey centred). Squares are 96x96 with the tab ~28 wide x ~18 deep. Maintain consistent stroke and equal spacing.",
+        "option_descriptions": {
+          "A": "Square with the solid triangular tab on the RIGHT edge.",
+          "B": "Square with the solid triangular tab on the TOP edge.",
+          "C": "Square with the solid triangular tab on the BOTTOM edge.",
+          "D": "Square with the solid triangular tab on the LEFT edge."
+        },
+        "recommended_width": 720,
+        "recommended_height": 200,
+        "mobile_behavior": "Scale to container width; strip may wrap the two groups onto two lines below ~420px while keeping each figure's internal proportions and stroke clarity.",
+        "alt_text": "A square with a small tab on one edge, an arrow, the same square with the tab on a different edge, then a third square with a tab and a question mark."
+      },
+      "display_spec": {
+        "component_type": "FigureAnalogyQuestion",
+        "desktop_answer_columns": 4,
+        "mobile_answer_columns": 2,
+        "zoom_enabled": true,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Figure analogies (A:B::C:?) require inferring a transformation from one pair and applying it to a new instance — a core inductive-reasoning operation in the ICAR and Raven figure-item tradition. The asymmetric tab makes orientation trackable without relying on knowledge.",
+      "knowledge_requirements": "None beyond recognizing that a shape can be rotated.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "The competing rule is reflection. Reflection across the vertical axis maps a top tab to a top tab (unchanged); across the horizontal axis maps top to bottom. Neither reproduces the observed top-to-right mapping in the A-to-B example. Only a 90 degrees clockwise rotation does. The example therefore uniquely fixes the rule as rotation, and a left tab maps only to the top. Single answer holds."
+      },
+      "source_basis": [
+        "Figure-analogy A:B::C:? structure as used in ICAR and Raven-style figure items (Condon & Revelle 2014)",
+        "Rotation as a transformation rule; reflection-vs-rotation distractor design (Carpenter, Just & Shell 1990)"
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "item_id": "ABS-CLS-002",
+      "version": 1,
+      "status": "candidate",
+      "user_category": "Abstract Reasoning",
+      "technical_construct": "Inductive reasoning",
+      "subskill": "Rule abstraction with mental transformation (odd-one-out)",
+      "item_format": "visual_classification",
+      "difficulty_target": 3,
+      "difficulty_rationale": "Three figures are rotations of one chiral shape; one is its mirror image, which cannot be produced by rotation. Solvers must detect handedness (chirality), a transformation that is reliably missed when people check only gross orientation. The 180-degree rotation acts as a 'looks flipped' decoy.",
+      "prompt": "Three of these figures are rotations of the same shape. One is not. Which figure does NOT belong?",
+      "option_a": "asset: ABS-CLS-002-OPTIONS, tile A",
+      "option_b": "asset: ABS-CLS-002-OPTIONS, tile B",
+      "option_c": "asset: ABS-CLS-002-OPTIONS, tile C",
+      "option_d": "asset: ABS-CLS-002-OPTIONS, tile D",
+      "correct_answer": "C",
+      "solution": "Tiles A, B and D are all rotations of the same F-shaped pentomino (at 0, 180 and 90 degrees clockwise). Tile C is the MIRROR image of that shape. A mirror image is a reflection, not a rotation: no amount of turning in the plane converts a left-handed F into a right-handed F. Therefore tile C does not belong.",
+      "distractor_rationales": {
+        "A": "Belongs: the base orientation of the F-pentomino.",
+        "B": "Belongs: the base shape rotated 180 degrees. This is the most common wrong choice because it looks 'flipped', but it is a genuine rotation.",
+        "C": "Correct (the odd one): a mirror reflection of the shape, which has the opposite handedness and cannot be obtained by rotation.",
+        "D": "Belongs: the base shape rotated 90 degrees clockwise."
+      },
+      "expected_time_seconds": 50,
+      "minimum_reasonable_seconds": 12,
+      "timing_affects_score": false,
+      "visual_asset_required": true,
+      "visual_asset_id": "ABS-CLS-002-OPTIONS",
+      "visual_asset_spec": {
+        "type": "svg",
+        "main_figure_description": "There is no separate stimulus; the four answer tiles ARE the figures to compare, shown as a labelled set (A, B, C, D). Each tile is a 132x132 white box (rounded corners, hairline grid-line border) containing an F-pentomino drawn as five filled unit cells (cell ~26px, ink fill, hairline internal separators optional) on an implicit 3x3 grid, centred. Cell maps (col,row, origin top-left): TILE A (F base): (1,0),(2,0),(0,1),(1,1),(1,2). TILE B (F rotated 180): (1,0),(2,1),(1,1),(0,2),(1,2). TILE C (mirror F): (0,0),(1,0),(1,1),(2,1),(1,2). TILE D (F rotated 90 clockwise): (1,0),(0,1),(1,1),(2,1),(2,2). Draw all four identically in stroke and fill so only shape differs.",
+        "option_descriptions": {
+          "A": "An F-pentomino in its base orientation.",
+          "B": "The same pentomino rotated 180 degrees.",
+          "C": "The mirror image of the pentomino.",
+          "D": "The same pentomino rotated 90 degrees clockwise."
+        },
+        "recommended_width": 600,
+        "recommended_height": 180,
+        "mobile_behavior": "Reflow the four tiles into a 2x2 grid below ~420px; keep each pentomino's cells crisp at small size by preserving integer cell sizing.",
+        "alt_text": "Four tiles, each containing a shape made of five connected squares in different orientations."
+      },
+      "display_spec": {
+        "component_type": "ClassificationQuestion",
+        "desktop_answer_columns": 4,
+        "mobile_answer_columns": 2,
+        "zoom_enabled": true,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Odd-one-out over rotations versus a reflection isolates the ability to abstract an invariant (handedness) across surface transformations — a fluid-reasoning operation. It deliberately does not depend on labels or knowledge.",
+      "knowledge_requirements": "None. The term 'pentomino' is not shown to the user; only the figures appear.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Checked that the chosen shape is genuinely chiral: the F-pentomino has rotational symmetry of order 1 (four distinct rotations) and its mirror is not among those four rotations, so exactly one tile (the mirror) is unrotatable into the others. Verified each of A, B, D is a distinct true rotation of the same base and that C is the reflection. No second figure qualifies as the odd one."
+      },
+      "source_basis": [
+        "Mental-rotation and chirality detection (Shepard & Metzler 1971)",
+        "Classification / odd-one-out inductive item format (ICAR and Raven tradition; Primi 2001 on perceptual encoding load)"
+      ],
+      "review_status": "reviewed"
+    }
+  ]
+}
