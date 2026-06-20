@@ -30,18 +30,31 @@ export default function ResultsPage() {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  const score          = state?.score          ?? null;
-  const totalQuestions = state?.totalQuestions ?? null;
-  const categoryScores = state?.categoryScores ?? {};
+  // All values read with safe fallbacks so the page never crashes when arrived
+  // at directly (no navigation state) or when an older quiz omits a field.
+  const score            = state?.score            ?? null;
+  const totalQuestions   = state?.totalQuestions   ?? null;
+  const weightedScore    = state?.weightedScore    ?? null;
+  const maxWeightedScore = state?.maxWeightedScore ?? null;
+  const categoryScores   = state?.categoryScores   ?? {};
 
+  // Primary ring: raw percentage correct (unchanged behaviour).
   const pct  = score != null && totalQuestions ? Math.round((score / totalQuestions) * 100) : null;
   const tier = pct != null ? getTier(pct) : null;
 
-  // Show category breakdown only when there's more than the catch-all "General" category
+  // Difficulty-weighted percentage (Stage 2). Only shown when both values exist
+  // and the denominator is non-zero, so there is no divide-by-zero.
+  const weightedPct =
+    weightedScore != null && maxWeightedScore
+      ? Math.round((weightedScore / maxWeightedScore) * 100)
+      : null;
+
+  // Show category breakdown only when there are meaningful category names
+  // (more than one category, or a single category that is not the catch-all "General").
   const catEntries = Object.entries(categoryScores);
   const showCategories =
-    catEntries.length > 0 &&
-    !(catEntries.length === 1 && catEntries[0][0] === 'General');
+    catEntries.length > 1 ||
+    (catEntries.length === 1 && catEntries[0][0] !== 'General');
 
   return (
     <div className="page-placeholder" style={{ justifyContent: 'flex-start', paddingTop: 48 }}>
@@ -88,20 +101,27 @@ export default function ResultsPage() {
           </p>
         )}
 
+        {/* Difficulty-weighted score (Stage 2) — only when present */}
+        {weightedPct != null && (
+          <p style={{ textAlign: 'center', color: 'var(--muted)', fontSize: 12.5, marginTop: 4 }}>
+            Difficulty-weighted score: {weightedPct}%
+          </p>
+        )}
+
         {/* Category breakdown */}
         {showCategories && (
-          <div className="cat-section">
-            <span className="cat-section-label">Score by category</span>
-            <div className="cat-rows">
+          <div className="results-cat-section">
+            <span className="results-cat-label">Score by category</span>
+            <div className="results-cat-rows">
               {catEntries
                 .sort((a, b) => b[1].pct - a[1].pct)
                 .map(([cat, data]) => (
-                  <div className="cat-row" key={cat}>
-                    <span className="cat-name" title={cat}>{cat}</span>
-                    <div className="cat-bar-wrap">
-                      <div className="cat-bar-fill" style={{ width: `${data.pct}%` }} />
+                  <div className="results-cat-row" key={cat}>
+                    <span className="results-cat-name" title={cat}>{cat}</span>
+                    <div className="results-cat-bar-wrap">
+                      <div className="results-cat-bar-fill" style={{ width: `${data.pct}%` }} />
                     </div>
-                    <span className="cat-pct">{data.pct}%</span>
+                    <span className="results-cat-pct">{data.pct}%</span>
                   </div>
                 ))}
             </div>
