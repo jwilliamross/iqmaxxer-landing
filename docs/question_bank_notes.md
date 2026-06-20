@@ -15,3 +15,10 @@ Working notes for the IQMaxxer draft question bank (`data/question_bank_draft.js
 - `ABS-CLS-002` — v1 — Difficulty 3 — accepted — proof image valid
 - `ABS-MAT-003` — v2 — Difficulty 4 — accepted — proof image stale, must regenerate
 - `ABS-MAT-004` — v2 — Difficulty 4 — accepted — proof image stale or needs confirmation after v2 save
+
+## Spatial Reasoning Micro-Batch 1 Status
+
+- `SPA-ROT-001` — v1 — Difficulty 2 — accepted
+- `SPA-NET-002` — v1 — Difficulty 3 — accepted, typo corrected in ambiguity note
+- `SPA-ASM-003` — v1 — Difficulty 4 — accepted provisional; may test closer to D3/D4
+- `SPA-3D-004` — v2 — Difficulty 5 — accepted provisional; requires post-render mobile legibility check before final lock

@@ -258,6 +258,274 @@
         "Classification / odd-one-out inductive item format (ICAR and Raven tradition; Primi 2001 on perceptual encoding load)"
       ],
       "review_status": "reviewed"
+    },
+    {
+      "item_id": "SPA-ROT-001",
+      "version": 1,
+      "status": "candidate",
+      "user_category": "Spatial Reasoning",
+      "technical_construct": "Mental rotation (2D rigid rotation)",
+      "subskill": "Applying a specified rotation to an asymmetric figure and rejecting the reflection foil",
+      "item_format": "mental_rotation_2d",
+      "difficulty_target": 2,
+      "difficulty_rationale": "A single named transformation — a quarter-turn (90 degrees) clockwise — applied to one clear, doubly-asymmetric figure (a pennant flag: it is asymmetric top-to-bottom AND left-to-right, so both rotation amount and handedness are trackable). The three foils are the three canonical rotation errors: wrong direction (90 CCW), over-rotation (180), and a mirror image. The mirror foil lifts it just above a trivial one-step turn, but because the required angle is stated and the figure has few parts, it stays at the easy end. No second rule, no in-figure detail.",
+      "prompt": "The figure on the left is rotated a quarter-turn clockwise (90 degrees). Which option shows the result?",
+      "option_a": "asset: SPA-ROT-001-OPTIONS, tile A",
+      "option_b": "asset: SPA-ROT-001-OPTIONS, tile B",
+      "option_c": "asset: SPA-ROT-001-OPTIONS, tile C",
+      "option_d": "asset: SPA-ROT-001-OPTIONS, tile D",
+      "correct_answer": "A",
+      "solution": "The figure is a vertical pole with a small solid pennant at the TOP pointing RIGHT and a solid round knob at the BOTTOM. A quarter-turn clockwise sends 'top' to 'right' and 'bottom' to 'left', so the pole becomes horizontal with the knob at the LEFT end and the pennant at the RIGHT end. The pennant, which pointed right (away from the pole, toward the direction that 'top' moves into), now points DOWN. The result is a horizontal pole, knob on the left, pennant on the right end pointing down: tile A.",
+      "distractor_rationales": {
+        "A": "Correct: 90 degrees clockwise — pole horizontal, knob left, pennant on the right end pointing down.",
+        "B": "Pole horizontal, pennant on the LEFT end pointing up, knob on the right: this is a 90-degree turn the wrong way (counter-clockwise). The most common direction error.",
+        "C": "Pole vertical, knob at TOP, pennant at the BOTTOM pointing left: this is a half-turn (180 degrees) — over-rotation.",
+        "D": "Pole vertical, pennant at the TOP pointing LEFT, knob at bottom: this is the mirror image of the original, not a rotation at all (opposite handedness). Catches solvers who flip rather than turn."
+      },
+      "expected_time_seconds": 40,
+      "minimum_reasonable_seconds": 10,
+      "timing_affects_score": false,
+      "visual_asset_required": true,
+      "visual_asset_id": "SPA-ROT-001-MAIN",
+      "visual_asset_spec": {
+        "type": "svg",
+        "main_figure_description": "Tokens from design-tokens.json: ink #14181F line art, stroke 2.5 (round cap/join), white ground, no accent needed. STIMULUS (left of the option row, or above on mobile): one 150x150 tile containing the target flag. Geometry in tile-local coords (0..150): POLE = vertical line from (75,35) to (75,115), stroke 2.5. PENNANT = a small solid filled triangle attached at the top of the pole, pointing right: vertices (75,35),(110,46),(75,57). KNOB = solid filled circle radius 7 centred at (75,115). Then a rightward arrow (stroke 2.5) separating stimulus from a question-mark box (rounded square, muted grey '?' #9AA2B1). OPTION TILES are each 150x150 with the same line weights; each shows the same flag (pole + one pennant + one knob, identical sizes) in a different orientation. Tile A: pole HORIZONTAL from (35,75) to (115,75); knob at (35,75); pennant a solid triangle at the right end pointing DOWN, vertices (115,75),(104,110),(93,75). Tile B: pole HORIZONTAL (35,75)-(115,75); knob at (115,75); pennant at the LEFT end pointing UP, vertices (35,75),(46,40),(57,75). Tile C: pole VERTICAL (75,35)-(75,115); knob at TOP (75,35); pennant at the BOTTOM pointing LEFT, vertices (75,115),(40,104),(75,93). Tile D: pole VERTICAL (75,35)-(75,115); knob at BOTTOM (75,115); pennant at the TOP pointing LEFT, vertices (75,35),(40,46),(75,57). Keep pennant and knob sizes identical across all tiles so only orientation/handedness differs.",
+        "option_descriptions": {
+          "A": "Horizontal pole, knob on the left end, pennant on the right end pointing down.",
+          "B": "Horizontal pole, pennant on the left end pointing up, knob on the right end.",
+          "C": "Vertical pole, knob at the top, pennant at the bottom pointing left.",
+          "D": "Vertical pole, pennant at the top pointing left, knob at the bottom."
+        },
+        "recommended_width": 720,
+        "recommended_height": 220,
+        "mobile_behavior": "Stimulus strip stacks above the option grid below ~420px; options render 2x2. The flag has only three large parts so it stays legible without zoom, but zoom remains enabled.",
+        "alt_text": "A flag shape made of a pole, a small triangular pennant, and a round knob, shown next to an arrow and a question mark; four option tiles each show the flag in a different orientation."
+      },
+      "display_spec": {
+        "component_type": "MentalRotationQuestion",
+        "desktop_answer_columns": 4,
+        "mobile_answer_columns": 2,
+        "zoom_enabled": true,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Applying a known rigid rotation to an asymmetric figure and distinguishing it from its mirror image is the foundational mental-rotation operation (Shepard & Metzler tradition, 2D form). The doubly-asymmetric flag makes both the angle and the handedness diagnosable from a quick glance, keeping the load low.",
+      "knowledge_requirements": "None beyond understanding 'clockwise' and that a shape can be turned.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Because the angle (90 CW) is stated, the result is uniquely determined; only tile A matches it. Checked that no foil coincidentally equals the 90 CW result: B is its mirror across the horizontal (the CCW result), C is the 180 result, D is the reflection of the original — all distinct from A. The flag's double asymmetry guarantees the four orientations are pairwise distinguishable (no accidental symmetry collapses two tiles)."
+      },
+      "source_basis": [
+        "Mental rotation of asymmetric figures and reflection-vs-rotation foils (Shepard & Metzler 1971)",
+        "Rotation-amount and direction errors as standard spatial distractors (Vandenberg & Kuse 1978, Mental Rotations Test)"
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "item_id": "SPA-NET-002",
+      "version": 1,
+      "status": "candidate",
+      "user_category": "Spatial Reasoning",
+      "technical_construct": "Spatial visualization (surface development / cube folding)",
+      "subskill": "Deriving opposite-face pairs from a net and rejecting cube views that show opposite faces together",
+      "item_format": "cube_net_folding",
+      "difficulty_target": 3,
+      "difficulty_rationale": "The solver must mentally fold a six-square net into a cube and determine which faces end up opposite each other, then test four cube views against that. The discriminating principle — two faces that are opposite can never both be visible on the same three-face view — is clean and statable, but extracting the three opposite-pairs from the net requires genuine folding visualisation. Crucially, all face marks are rotationally symmetric, so there is NO in-face orientation 'gotcha'; difficulty comes only from the folding step. That places it squarely at medium (Difficulty 3), not higher.",
+      "prompt": "The net on the left folds into a cube. Which of the four cubes could it be?",
+      "option_a": "asset: SPA-NET-002-OPTIONS, tile A",
+      "option_b": "asset: SPA-NET-002-OPTIONS, tile B",
+      "option_c": "asset: SPA-NET-002-OPTIONS, tile C",
+      "option_d": "asset: SPA-NET-002-OPTIONS, tile D",
+      "correct_answer": "A",
+      "solution": "Fold the net. In this net the four faces in the long horizontal strip (ring, dot, plus, X — reading left to right) wrap into a band, so opposite faces are the ones two apart in the band: RING is opposite PLUS, and DOT is opposite X. The two faces above and below the strip (square on top of the dot face, ringed-dot below it) fold to the remaining pair, so SQUARE is opposite RINGED-DOT. The three opposite pairs are therefore: dot-X, ring-plus, square-ringed-dot. A valid cube view shows three MUTUALLY ADJACENT faces, i.e. no opposite pair. Tile A shows dot, ring and square — none of which are opposite to each other — so it is foldable. Each other tile shows one of the forbidden opposite pairs: B shows dot and X, C shows ring and plus, D shows square and ringed-dot. Those three are impossible. The answer is A.",
+      "distractor_rationales": {
+        "A": "Correct: shows dot, ring, and square — three mutually adjacent faces meeting at one corner, with no opposite pair.",
+        "B": "Shows the dot face and the X face together; these are opposite faces and can never both be visible at once. Impossible.",
+        "C": "Shows the ring face and the plus face together; these are opposite. Impossible.",
+        "D": "Shows the square face and the ringed-dot face together; these are opposite. Impossible."
+      },
+      "expected_time_seconds": 70,
+      "minimum_reasonable_seconds": 18,
+      "timing_affects_score": false,
+      "visual_asset_required": true,
+      "visual_asset_id": "SPA-NET-002-MAIN",
+      "visual_asset_spec": {
+        "type": "svg",
+        "main_figure_description": "Tokens from design-tokens.json: ink line art, stroke 2.5, white ground, grid-line #D4D8E0 cell borders. NET (stimulus): six equal squares (each 64x64) arranged in a cross/T. Layout in net-local coords with cell (col,row), origin top-left of the net: a horizontal strip of FOUR cells at row 1: positions col0=RING (circle outline, r18, centred), col1=DOT (solid filled circle r12), col2=PLUS (a '+' of two crossed strokes ~36 long), col3=X (a saltire '×' ~36 long). Above col1 (row 0): SQUARE mark (a small solid filled square ~26). Below col1 (row 2): RINGED-DOT mark (a circle outline r18 with a solid dot r7 at its centre). All marks are rotationally symmetric so face orientation is irrelevant. OPTIONS: four isometric cubes, each drawn as a standard three-quarter view showing exactly three faces — a TOP face (rhombus) and two FRONT faces (left-front and right-front parallelograms), stroke 2.5, faint interior face shading optional using paper_tint. Marks are centred on each visible face, sized to read at small scale. Tile A: top=SQUARE, left-front=RING, right-front=DOT. Tile B: top=RING, left-front=DOT, right-front=X. Tile C: top=SQUARE, left-front=RING, right-front=PLUS. Tile D: top=SQUARE, left-front=RINGED-DOT, right-front=DOT. Draw all cubes at identical size and viewing angle so only the marks differ.",
+        "option_descriptions": {
+          "A": "A cube showing a square mark on top, a ring on the left face, and a dot on the right face.",
+          "B": "A cube showing a ring on top, a dot on the left face, and an X on the right face.",
+          "C": "A cube showing a square on top, a ring on the left face, and a plus on the right face.",
+          "D": "A cube showing a square on top, a ringed-dot on the left face, and a dot on the right face."
+        },
+        "recommended_width": 760,
+        "recommended_height": 240,
+        "mobile_behavior": "Net stacks above the four cubes below ~420px; cubes render 2x2. Marks are large and high-contrast so they survive small render sizes; zoom enabled for the isometric faces.",
+        "alt_text": "A flat cross-shaped net of six squares each carrying a simple symbol, beside four drawings of a cube each showing three symbol-bearing faces."
+      },
+      "display_spec": {
+        "component_type": "CubeNetQuestion",
+        "desktop_answer_columns": 4,
+        "mobile_answer_columns": 2,
+        "zoom_enabled": true,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Surface development (folding a 2D net into a 3D solid and tracking face relationships) is a core spatial-visualization factor distinct from mental rotation. Using the opposite-face invariant makes the item objective and orientation-free while still requiring the fold to be performed mentally.",
+      "knowledge_requirements": "None. No knowledge of the word 'net' or of opposite-face rules is assumed; the relationships are derivable by visualising the fold.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Opposite pairs derived from the net: strip RING-DOT-PLUS-X... rechecked — strip order ring,dot,plus,X gives band-opposite pairs ring/plus and dot/X; the flap pair (square above, ringed-dot below the dot face) gives square/ringed-dot. Each of B, C, D contains exactly one of these three opposite pairs, so each is impossible regardless of the third face or any rotation. Tile A's three faces (dot, ring, square) contain no opposite pair and do meet at a common corner, so it is genuinely foldable. Because all marks are rotationally symmetric, there is no second, orientation-based reading that could invalidate A or rescue a distractor. Exactly one valid option."
+      },
+      "source_basis": [
+        "Surface development / paper-folding as a spatial-visualization factor (Thurstone 1938; Carroll 1993 spatial taxonomy)",
+        "Cube-net opposite-face reasoning as used in standard spatial test items (Shepard & Feng 1972, mental paper folding)"
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "item_id": "SPA-ASM-003",
+      "version": 1,
+      "status": "candidate",
+      "user_category": "Spatial Reasoning",
+      "technical_construct": "Spatial visualization (form assembly / disembedding)",
+      "subskill": "Selecting the piece set that tiles a target outline, with rotation and footprint reasoning",
+      "item_format": "shape_assembly",
+      "difficulty_target": 4,
+      "difficulty_rationale": "The solver must hold a target outline in mind and test whether each candidate piece pair can tile it exactly, rotating pieces mentally and reasoning about whether a piece even fits inside the target's bounding footprint. Two of the three foils are AREA-MATCHED (they total the correct number of cells), so they cannot be dismissed by counting — the solver must realise that a straight four-in-a-line piece cannot fit inside a three-by-three footprint. The correct pair also requires actively visualising the wrap-around fit, not just elimination. That combination of mental rotation plus fit/footprint reasoning, with counting defeated, puts it at Difficulty 4 (toward the lower end of 4).",
+      "prompt": "Which pair of pieces can be fitted together — turning them if needed, but not flipping them — to exactly fill the grey target shape, with no gaps and no overlaps?",
+      "option_a": "asset: SPA-ASM-003-OPTIONS, tile A",
+      "option_b": "asset: SPA-ASM-003-OPTIONS, tile B",
+      "option_c": "asset: SPA-ASM-003-OPTIONS, tile C",
+      "option_d": "asset: SPA-ASM-003-OPTIONS, tile D",
+      "correct_answer": "A",
+      "solution": "The target is a 3x3 square of unit cells with the top-right cell removed — eight cells total. The pieces in option A are a 2x2 square block and an L-shaped four-cell piece. Place the 2x2 block in the top-left corner (covering the four cells of the upper-left quadrant); the L-piece, rotated so its long edge runs along the bottom row and its foot rises up the right column, fills the remaining four cells (bottom row plus the middle-right cell). Together they cover all eight cells exactly. The answer is A. The other options fail: B and C are area-matched (eight cells) but contain a piece that needs a straight run of four cells, which cannot fit inside the target's three-by-three footprint; D has nine cells and overfills.",
+      "distractor_rationales": {
+        "A": "Correct: a 2x2 square plus a four-cell L-piece tile the eight-cell target exactly after rotating the L.",
+        "B": "Area-matched (8 cells) but includes a five-cell L-piece whose straight arm is four cells long; no four-in-a-line segment fits within a 3x3 footprint, so it cannot be placed. Catches solvers who check only the cell count.",
+        "C": "Area-matched (8 cells) but includes a straight four-in-a-line piece, which again cannot fit inside the 3x3 footprint. Same footprint trap as B, different piece.",
+        "D": "A 2x2 square plus a five-cell P-piece totals nine cells — one too many. Overfills the eight-cell target. Catches solvers who don't total the area."
+      },
+      "expected_time_seconds": 90,
+      "minimum_reasonable_seconds": 22,
+      "timing_affects_score": false,
+      "visual_asset_required": true,
+      "visual_asset_id": "SPA-ASM-003-MAIN",
+      "visual_asset_spec": {
+        "type": "svg",
+        "main_figure_description": "Tokens from design-tokens.json: ink outlines stroke 2.5, white ground, target filled paper_tint #F5F6F8 with ink outline; pieces filled white with ink outline and hairline internal cell separators (grid_line) so unit cells are countable. Unit cell = 34px throughout. TARGET (stimulus): a 3x3 arrangement of unit cells with the TOP-RIGHT cell omitted. Present cells by (col,row) origin top-left: (0,0),(1,0),(0,1),(1,1),(2,1),(0,2),(1,2),(2,2). Draw as one filled silhouette with the outer outline emphasised and faint internal cell lines. OPTION TILES each contain TWO separate pieces drawn side by side (small gap between them), each piece shown as connected unit cells with internal separators, in an arbitrary rotation: Tile A: piece 1 = 2x2 square block (cells (0,0),(1,0),(0,1),(1,1)); piece 2 = L-tetromino shown rotated, cells (0,0),(0,1),(0,2),(1,2) [a column of three with one cell to the right at the bottom]. Tile B: piece 1 = L-PENTOMINO, cells (0,0),(0,1),(0,2),(0,3),(1,3) [a straight arm of four with a foot] ; piece 2 = L-tromino, cells (0,0),(1,0),(1,1). Tile C: piece 1 = I-tetromino, cells (0,0),(1,0),(2,0),(3,0) [straight four-in-a-line]; piece 2 = L-tetromino, cells (0,0),(1,0),(2,0),(2,1). Tile D: piece 1 = 2x2 square block; piece 2 = P-pentomino, cells (0,0),(1,0),(0,1),(1,1),(0,2). Label each tile A-D. Keep cell size identical everywhere so areas are visually comparable.",
+        "option_descriptions": {
+          "A": "A 2-by-2 square block and a four-cell L-shaped piece.",
+          "B": "A five-cell L piece with a long straight arm, plus a small three-cell corner piece.",
+          "C": "A straight four-in-a-row piece and a four-cell L-shaped piece.",
+          "D": "A 2-by-2 square block and a five-cell P-shaped piece."
+        },
+        "recommended_width": 760,
+        "recommended_height": 260,
+        "mobile_behavior": "Target stacks above the option grid below ~420px; options render 2x2. Unit-cell separators keep counts readable; zoom enabled so piece cells can be counted on a phone.",
+        "alt_text": "A grey target shape made of eight squares (a three-by-three block missing one corner), beside four options that each show two separate multi-square pieces."
+      },
+      "display_spec": {
+        "component_type": "ShapeAssemblyQuestion",
+        "desktop_answer_columns": 4,
+        "mobile_answer_columns": 2,
+        "zoom_enabled": true,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Form assembly — combining parts into a whole — is a classic spatial-visualization task (the form-board tradition). Requiring exact tiling with mental rotation, and defeating the area-count shortcut with footprint-impossible foils, forces true spatial fit reasoning rather than arithmetic.",
+      "knowledge_requirements": "None beyond counting small squares and the idea that a piece can be turned.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Target = 3x3 minus the top-right cell (8 cells). Verified A tiles it: 2x2 block in the upper-left quadrant covers (0,0),(1,0),(0,1),(1,1); the L-tetromino rotated covers (0,2),(1,2),(2,2),(2,1) — together exactly the eight target cells, no overlap, no gap, rotation only (no flip needed; the L's handedness matches). Verified each foil is impossible for a certain reason: B contains a piece with a straight arm of four cells and C contains a straight four-in-a-line piece — the target's bounding box is only 3x3, so no four-collinear-cell segment can be placed, making both impossible despite matching the 8-cell area; D totals 9 cells and cannot fit an 8-cell target. No second option can tile the target, so the answer is unique. Reflections are explicitly disallowed in the prompt, removing any handedness ambiguity."
+      },
+      "source_basis": [
+        "Form assembly / part-whole construction as a spatial-visualization measure (Thurstone 1938; Wechsler Object Assembly tradition)",
+        "Polyomino tiling and bounding-footprint constraints; area-matched non-fitting distractors to defeat counting heuristics (Carroll 1993 spatial factor)"
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "item_id": "SPA-3D-004",
+      "version": 2,
+      "status": "candidate",
+      "user_category": "Spatial Reasoning",
+      "technical_construct": "Mental rotation (3D rigid rotation of a multi-cube object)",
+      "subskill": "Identifying a true 3D rotation of a chiral cube figure and rejecting its mirror image (enantiomorph) and structurally different foils",
+      "item_format": "mental_rotation_3d",
+      "difficulty_target": 5,
+      "difficulty_rationale": "A Shepard-Metzler-style object: eight unit cubes joined in a chain with two right-angle bends lying in two different planes, which makes the object chiral (its mirror image cannot be rotated onto it). The solver must build the 3D structure mentally, rotate it, and decide which option is the same object. The decisive foil is the enantiomorph (option B) — the single hardest distractor in the spatial literature, because reversed handedness defeats every feature-matching or partial-rotation strategy. This is genuine ceiling spatial load, not clutter: the object is only eight cubes with two bends, so the difficulty comes from the 3D rotation-plus-handedness reasoning rather than from visual density. The exact coordinates below make the item uniquely solvable and deterministically renderable; the ONLY residual risk is mobile legibility (eight cubes across five panels). The 5 rating is therefore contingent on the rendered asset passing the post-render legibility check described in mobile_behavior and ambiguity_review. If, after rendering at the specified edge length, individual cubes are not separable on a ~360px-wide phone screen even with zoom, downgrade to Difficulty 4 — the logic stays valid, but perceptual difficulty would otherwise inflate the construct.",
+      "prompt": "The object on the left is shown again — turned to a new position — in exactly one of the four options. The others are either a mirror image or a different object. Which option is the SAME object, only rotated?",
+      "option_a": "asset: SPA-3D-004-OPTIONS, tile A",
+      "option_b": "asset: SPA-3D-004-OPTIONS, tile B",
+      "option_c": "asset: SPA-3D-004-OPTIONS, tile C",
+      "option_d": "asset: SPA-3D-004-OPTIONS, tile D",
+      "correct_answer": "A",
+      "solution": "The target is a chain of eight cubes whose step-to-step moves are [+x,+x,+y,+y,+z,+z,+z]: a run of three cubes along +x, a turn upward for a run of three (two +y steps), then a turn into depth for a run of four (three +z steps). The two turns lie in different planes, giving the object a fixed handedness (right-handed screw sense). OPTION A is this same object after a proper rotation R_y(+90 degrees), matrix [[0,0,1],[0,1,0],[-1,0,0]] i.e. (x,y,z)->(z,y,-x), then a normalizing shift; its moves become [-z,-z,+y,+y,+x,+x,+x] — identical structure and identical handedness, so A is a true rotation and is the answer. OPTION B is the target reflected through the z=0 plane, (x,y,z)->(x,y,-z); its moves are [+x,+x,+y,+y,-z,-z,-z] — same run lengths and bend angles but reversed handedness, so it is the mirror image and cannot be produced by any rotation. OPTION C has three bends, not two (moves [+x,+x,+y,+z,+z,-y,-y]), so it is a structurally different object. OPTION D has run lengths of 2, 3 and 5 cubes (moves [+x,+y,+y,+z,+z,+z,+z], a run-step multiset of {1,2,4} versus the target's {2,2,3}), so it is also a different object. Only A preserves both the connectivity and the handedness of the target.",
+      "distractor_rationales": {
+        "A": "Correct: a proper rotation (R_y(+90 degrees)) of the target — same connectivity, same run lengths, same handedness.",
+        "B": "The enantiomorph (mirror image through the z=0 plane). Identical run lengths and bend angles but opposite handedness; no rotation can reproduce it. The hardest foil — traps anyone who matches arm lengths without checking screw sense.",
+        "C": "Structurally different: it has three right-angle bends instead of two, so it is not congruent to the target under any rigid motion.",
+        "D": "Structurally different: its straight runs are 2, 3 and 5 cubes long (run-step multiset {1,2,4}) rather than the target's 3, 3 and 4 cubes ({2,2,3}), so it is a different object."
+      },
+      "expected_time_seconds": 150,
+      "minimum_reasonable_seconds": 30,
+      "timing_affects_score": false,
+      "visual_asset_required": true,
+      "visual_asset_id": "SPA-3D-004-MAIN",
+      "visual_asset_spec": {
+        "type": "svg",
+        "coordinate_system": "Right-handed integer cube lattice. Each tuple is the integer position of one unit cube; x = right, y = up, z = depth (away from viewer). Cubes are listed in chain order (cube 1 to cube 8); consecutive cubes differ by exactly 1 in one axis. All coordinate lists are normalized so the minimum value on each axis is 0.",
+        "object_coordinates": {
+          "target": [[0,0,0],[1,0,0],[2,0,0],[2,1,0],[2,2,0],[2,2,1],[2,2,2],[2,2,3]],
+          "A": [[0,0,2],[0,0,1],[0,0,0],[0,1,0],[0,2,0],[1,2,0],[2,2,0],[3,2,0]],
+          "B": [[0,0,3],[1,0,3],[2,0,3],[2,1,3],[2,2,3],[2,2,2],[2,2,1],[2,2,0]],
+          "C": [[0,1,0],[1,1,0],[2,1,0],[2,2,0],[2,2,1],[2,2,2],[2,1,2],[2,0,2]],
+          "D": [[0,0,0],[1,0,0],[1,1,0],[1,2,0],[1,2,1],[1,2,2],[1,2,3],[1,2,4]]
+        },
+        "transform_provenance": {
+          "A_from_target": "A = R_y(+90 degrees) applied to each target cube, then translate by (0,0,+2) to normalize. R_y(+90) = [[0,0,1],[0,1,0],[-1,0,0]]; equivalently (x,y,z)->(z,y,-x). det = +1 (proper rotation), so A is the SAME object reoriented.",
+          "B_from_target": "B = reflection M applied to each target cube, then translate by (0,0,+3). M = diag(1,1,-1); equivalently (x,y,z)->(x,y,-z), a reflection in the z=0 plane. det = -1 (improper). Because the object is chiral, B is the enantiomorph and is NOT reachable by any rotation.",
+          "C_structure": "C is authored directly (not a transform of the target). Move sequence [+x,+x,+y,+z,+z,-y,-y] gives THREE right-angle bends, versus the target's two. Bend count is a rigid-motion invariant, so C is a different object.",
+          "D_structure": "D is authored directly. Move sequence [+x,+y,+y,+z,+z,+z,+z] gives straight runs of 2, 3 and 5 cubes (run-step multiset {1,2,4}) versus the target's runs of 3, 3 and 4 cubes ({2,2,3}). Run-length multiset is a rigid-motion invariant, so D is a different object."
+        },
+        "projection": "Render every cube with a single fixed isometric projection — do NOT apply any additional render-time rotation; each option's orientation is fully encoded in its coordinates. For a lattice point (x,y,z): screenX = ORIGIN_X + (x - z) * 0.8660 * E; screenY = ORIGIN_Y + (x + z) * 0.5 * E - y * E, where E = cube edge in px (use E = 28). Draw each unit cube as the standard isometric hexagon: a top rhombus plus a left and a right side-face. Painter's order: the view direction is from (+1,+1,+1) toward the origin, so sort cubes by ascending (x + y + z) and draw in that order, letting nearer cubes (larger x + y + z) paint last (on top).",
+        "shading_and_stroke": "Tokens from design-tokens.json. Cube edges: ink #14181F, stroke 2 (round join). Face fills, three flat tones for solidity: top faces #FFFFFF (paper), left faces #F5F6F8 (paper_tint), right faces #E7E9EE (a light grey between paper_tint and fill_muted). No accent colour needed. Outline the full silhouette of each object slightly heavier (stroke 2.5) so the chain reads as one solid against the white ground.",
+        "main_figure_description": "STIMULUS: the 'target' object drawn alone at the top (or left) using object_coordinates.target and the projection above. Then a divider, then the four option tiles. OPTION TILES: each a fixed-size panel (recommend 180x200) rendering, respectively, object_coordinates.A, .B, .C, .D, each centred in its panel using the SAME E, the SAME projection, and the SAME painter's rule. Label tiles A, B, C, D. Every cube must show all of its visible edges; where one cube partially hides another, keep the front cube's edges crisp so the count of eight cubes stays recoverable.",
+        "option_descriptions": {
+          "A": "An eight-cube chain with two right-angle bends, drawn from object_coordinates.A.",
+          "B": "An eight-cube chain with two right-angle bends, drawn from object_coordinates.B.",
+          "C": "An eight-cube chain with three right-angle bends, drawn from object_coordinates.C.",
+          "D": "An eight-cube chain with two right-angle bends and different run lengths, drawn from object_coordinates.D."
+        },
+        "recommended_width": 780,
+        "recommended_height": 320,
+        "mobile_behavior": "Stimulus stacks above the option grid below ~420px; options render 2x2. This is the most demanding item to read on a phone, so zoom is mandatory and enabled by default on this item. Occlusion mitigation: (1) the fixed (+1,+1,+1) camera plus the chosen coordinates keep every chain spread across the projection rather than stacked toward the viewer, so no cube is fully hidden; (2) full per-cube edge outlining and the three-tone face shading keep adjacent cubes separable; (3) options are never re-rotated at render time, so the apparent orientation is exactly the coordinates. POST-RENDER CHECK (required before acceptance): rasterize each tile at 360px panel width and confirm all eight cubes are countable and the silhouette of A is distinguishable from B; if not, increase E or the panel size, and if it still fails, downgrade the item to Difficulty 4.",
+        "alt_text": "A three-dimensional object built from eight small cubes joined in a bent chain, shown beside four other cube-chain objects drawn at different orientations."
+      },
+      "display_spec": {
+        "component_type": "ThreeDRotationQuestion",
+        "desktop_answer_columns": 4,
+        "mobile_answer_columns": 2,
+        "zoom_enabled": true,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Rotating a three-dimensional asymmetric object in the mind and distinguishing it from its enantiomorph is the canonical ceiling measure of spatial ability (Shepard & Metzler; Vandenberg & Kuse Mental Rotations Test). It simultaneously loads 3D structure-building, rotation, and handedness checking. Exact lattice coordinates and a single fixed projection remove the viewing-angle ambiguity that weakened version 1.",
+      "knowledge_requirements": "None beyond perceiving a line drawing as a 3D object and understanding the difference between 'turned' and 'mirror image'.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Proofs use rigid-motion invariants on the move sequences (target moves M_T = [+x,+x,+y,+y,+z,+z,+z]). (A is a true rotation) A = R_y(+90)·target with det = +1; a proper rotation maps an object to a congruent copy of the SAME handedness, so A is the target reoriented. (B is a mirror, not a rotation) B = diag(1,1,-1)·target with det = -1. Suppose a rotation R mapped target onto B reading the chain in the same order: R would have to satisfy R(+x)=+x, R(+y)=+y, R(+z)=-z, i.e. R = diag(1,1,-1), which has det = -1 and is not a rotation — contradiction. Reading B's chain in reverse order gives moves [+z,+z,+z,-y,-y,-x,-x]; matching target's forward moves would force R(+x) to equal both +z and -y, impossible. So no rotation (under either chain orientation) maps target to B; B is the enantiomorph. (C is structurally different) C has three right-angle bends versus the target's two; bend count is invariant under all rigid motions, so C is not congruent to the target. (D is structurally different) D's straight-run lengths are 2, 3, 5 cubes (run-step multiset {1,2,4}) versus the target's 3, 3, 4 cubes ({2,2,3}); the run-length multiset is invariant under rigid motions, so D is not congruent to the target. (Exactly one valid) Of the four, only A is congruent-by-rotation to the target: B is a reflection, C and D are not congruent at all. Therefore exactly one option is correct. Residual risk is perceptual only (mobile occlusion), addressed by the required post-render legibility check in mobile_behavior; it does not affect single-answer uniqueness."
+      },
+      "source_basis": [
+        "3D mental rotation and enantiomorph (mirror) foils (Shepard & Metzler 1971)",
+        "Mirror-image versus rotated-image discrimination as the ceiling spatial item type (Vandenberg & Kuse 1978, Mental Rotations Test; Carroll 1993 spatial taxonomy)"
+      ],
+      "review_status": "revised"
     }
   ]
 }
