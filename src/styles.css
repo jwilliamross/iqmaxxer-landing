@@ -644,3 +644,29 @@ h2.title {
 .checkout-notice { text-align: center; font-size: 12.5px; color: var(--muted); margin-top: 14px; line-height: 1.5; }
 .checkout-back { display: block; text-align: center; font-size: 13px; color: var(--slate); margin-top: 16px; cursor: pointer; }
 .checkout-back:hover { color: var(--ink); }
+
+/* ─── Results page — category breakdown (Stage 2) ─── */
+/* Used by the merged ResultsPage.jsx category bars (results-cat-* classes). */
+.results-cat-section { width: 100%; max-width: 400px; margin: 0 auto; text-align: left; }
+.results-cat-label {
+  display: block; margin-bottom: 12px;
+  font-family: "JetBrains Mono", monospace; font-size: 10px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+}
+.results-cat-rows { display: flex; flex-direction: column; gap: 9px; }
+.results-cat-row { display: flex; align-items: center; gap: 10px; }
+.results-cat-name {
+  flex: 0 0 130px; font-size: 13px; font-weight: 600; color: var(--ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.results-cat-bar-wrap {
+  flex: 1; height: 6px; background: var(--line); border-radius: 99px; overflow: hidden;
+}
+.results-cat-bar-fill {
+  height: 100%; background: var(--signal); border-radius: 99px;
+  transition: width .5s cubic-bezier(.4,0,.2,1);
+}
+.results-cat-pct {
+  flex: 0 0 36px; text-align: right;
+  font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 700; color: var(--muted);
+}
