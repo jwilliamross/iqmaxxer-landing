@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function CheckIcon() {
   return (
@@ -20,7 +19,14 @@ const FEATURES = [
 
 export default function CheckoutPage() {
   const navigate = useNavigate();
-  const [clicked, setClicked] = useState(false);
+  const { state } = useLocation();
+
+  // Stripe is not wired yet (deferred). For now "purchase" simulates a successful
+  // payment by returning to results with the report unlocked. When Stripe is added,
+  // its payment-success callback should navigate here with the SAME { ...state, unlocked: true }.
+  const completePurchase = () => {
+    navigate('/results', { state: { ...(state || {}), unlocked: true } });
+  };
 
   return (
     <div className="checkout-page">
@@ -51,16 +57,14 @@ export default function CheckoutPage() {
           <button
             className="btn btn-signal"
             style={{ width: '100%' }}
-            onClick={() => setClicked(true)}
+            onClick={completePurchase}
           >
-            Continue to Secure Checkout <span className="arrow">→</span>
+            Unlock my full report <span className="arrow">→</span>
           </button>
 
-          {clicked && (
-            <p className="checkout-notice">
-              Payment connection coming next — we're adding Stripe before launch.
-            </p>
-          )}
+          <p className="checkout-notice">
+            Secure card payment (Stripe) connects before public launch.
+          </p>
 
           <button className="checkout-back" onClick={() => navigate(-1)}>
             ← Back to results

@@ -60,6 +60,8 @@ export async function completeSession({
   totalQuestions,
   weightedScore,
   categoryScores,
+  iqEstimate,
+  percentile,
 }) {
   if (!supabase || !sessionId) return { error: null };
 
@@ -70,12 +72,14 @@ export async function completeSession({
     completed_at:    new Date().toISOString(),
   };
 
-  // Build the extra fields if Stage 2B columns exist
+  // Build the extra fields if the optional columns exist
   const extras = {};
   if (weightedScore != null) extras.weighted_score = weightedScore;
   if (categoryScores && Object.keys(categoryScores).length > 0) {
     extras.category_scores = categoryScores;
   }
+  if (iqEstimate != null) extras.iq_estimate = iqEstimate;
+  if (percentile != null) extras.percentile = percentile;
 
   if (Object.keys(extras).length > 0) {
     const { error: errWith } = await supabase

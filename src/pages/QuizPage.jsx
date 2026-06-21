@@ -7,6 +7,7 @@ import {
   completeSession,
 } from '../services/quizService.js';
 import { checkCorrect, calculateScore } from '../lib/scoringUtils.js';
+import { computeIq } from '../lib/iqScoring.js';
 
 // ─── Session persistence ──────────────────────────────────────────────────────
 // Stored per browser tab (sessionStorage clears on tab close, not on refresh).
@@ -209,6 +210,14 @@ export default function QuizPage() {
     const { rawScore, weightedScore, maxWeightedScore, categoryScores } =
       calculateScore(questions, finalPicked);
 
+    // Estimated IQ + percentile from the difficulty-weighted performance.
+    const iq = computeIq({
+      weightedScore,
+      maxWeightedScore,
+      rawScore,
+      totalQuestions: questions.length,
+    });
+
     try {
       await savePromise;
       if (sessionId) {
@@ -218,6 +227,8 @@ export default function QuizPage() {
           totalQuestions: questions.length,
           weightedScore,
           categoryScores,
+          iqEstimate: iq?.iq ?? null,
+          percentile: iq?.percentile ?? null,
         });
         if (completeErr) setSaveError('Your score may not have saved. Your result is still shown below.');
       }
@@ -237,6 +248,8 @@ export default function QuizPage() {
         weightedScore,
         maxWeightedScore,
         categoryScores,
+        iq: iq?.iq ?? null,
+        percentile: iq?.percentile ?? null,
       },
     });
   };
