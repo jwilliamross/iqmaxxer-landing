@@ -22,3 +22,10 @@ Working notes for the IQMaxxer draft question bank (`data/question_bank_draft.js
 - `SPA-NET-002` — v1 — Difficulty 3 — accepted, typo corrected in ambiguity note
 - `SPA-ASM-003` — v1 — Difficulty 4 — accepted provisional; may test closer to D3/D4
 - `SPA-3D-004` — v2 — Difficulty 5 — accepted provisional; requires post-render mobile legibility check before final lock
+
+## Numerical Reasoning Micro-Batch 1 Status
+
+- `NUM-SEQ-001` — v1 — Difficulty 2 — accepted
+- `NUM-PAT-002` — v1 — Difficulty 3 — accepted; may test at easy end of D3
+- `NUM-WRD-003` — v1 — Difficulty 4 — accepted
+- `NUM-LOG-004` — v2 — Difficulty 4 — accepted after downgrade from D5; strong D4 constraint puzzle, but not true D5 because the system reduces cleanly to a four-case scan

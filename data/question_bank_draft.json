@@ -526,6 +526,258 @@
         "Mirror-image versus rotated-image discrimination as the ceiling spatial item type (Vandenberg & Kuse 1978, Mental Rotations Test; Carroll 1993 spatial taxonomy)"
       ],
       "review_status": "revised"
+    },
+    {
+      "item_id": "NUM-SEQ-001",
+      "version": 1,
+      "status": "candidate",
+      "user_category": "Numerical Reasoning",
+      "technical_construct": "Inductive reasoning over quantity (number series)",
+      "subskill": "Identifying a recursive generating rule and extending it one term",
+      "item_format": "number_sequence",
+      "difficulty_target": 2,
+      "difficulty_rationale": "A short series with one consistent recursive rule (each term is double the previous plus one) that is independently confirmed by the first-difference pattern (3, 6, 12, 24 — each difference doubles). Two natural, low-complexity rule families converge on the same next term, so the answer is well-determined while the reasoning is a single step of rule induction. Light arithmetic, no large numbers. Easy end of the range.",
+      "prompt": "What number continues the sequence?\n\n2, 5, 11, 23, 47, ?",
+      "option_a": "95",
+      "option_b": "94",
+      "option_c": "71",
+      "option_d": "96",
+      "correct_answer": "A",
+      "solution": "Each term is double the previous term plus one: 2x2+1=5, 5x2+1=11, 11x2+1=23, 23x2+1=47, so the next term is 47x2+1 = 95. The same answer falls out of the differences (3, 6, 12, 24), which double each step: the next difference is 48, and 47+48 = 95. Both readings agree, so the answer is 95.",
+      "distractor_rationales": {
+        "A": "Correct: 47x2+1 = 95 (also 47 + 48 = 95 via the doubling differences).",
+        "B": "94: applied 'double the previous term' but dropped the +1 (47x2).",
+        "C": "71: continued the differences with the last difference unchanged (47 + 24) instead of doubling it to 48.",
+        "D": "96: doubled and added 2 instead of 1 (47x2+2), a slip in the additive constant."
+      },
+      "expected_time_seconds": 45,
+      "minimum_reasonable_seconds": 12,
+      "timing_affects_score": false,
+      "visual_asset_required": false,
+      "visual_asset_id": null,
+      "visual_asset_spec": {
+        "type": "text",
+        "main_figure_description": "No figure. Render the sequence inline in the prompt using the UI numeric font; place the five given terms and the '?' on one line separated by commas with comfortable spacing. Optionally render the '?' in the muted grey token (#9AA2B1) to match the question-mark styling used elsewhere.",
+        "option_descriptions": {
+          "A": "The number 95.",
+          "B": "The number 94.",
+          "C": "The number 71.",
+          "D": "The number 96."
+        },
+        "recommended_width": null,
+        "recommended_height": null,
+        "mobile_behavior": "Pure text; the sequence fits one line at mobile width. Options render as four tappable number chips, 2 columns on mobile.",
+        "alt_text": "A sequence of five numbers followed by a question mark, with four numeric answer choices."
+      },
+      "display_spec": {
+        "component_type": "NumberSequenceQuestion",
+        "desktop_answer_columns": 4,
+        "mobile_answer_columns": 2,
+        "zoom_enabled": false,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Number-series completion is a standard marker of inductive reasoning applied to quantity (the ICAR / Thurstone number-series tradition). Using a rule that is corroborated by two independent readings keeps the answer objective.",
+      "knowledge_requirements": "None beyond doubling and adding small whole numbers.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Uniqueness argument (over plausible low-complexity rules): the rule a(n+1)=2a(n)+1 fits all four observed transitions exactly, and the equivalent first-difference rule (differences 3,6,12,24, each x2) also fits and predicts the same next difference (48). Both give 95. Common competing simple rules are ruled out by the data: a constant difference fails (differences are not constant), a constant ratio fails (5/2, 11/5, ... are not equal), and add-a-fixed-number fails. While any finite series can be fit by a high-degree polynomial, no rule of complexity at or below the intended one yields a value other than 95; each distractor corresponds to a specific identifiable mis-step, not a rival global rule."
+      },
+      "source_basis": [
+        "Number-series items as inductive-reasoning measures (Thurstone 1938 Number factor; ICAR number series, Condon & Revelle 2014)",
+        "Recursive (multiply-and-add) generating rules with corroborating difference structure (standard quantitative-reasoning item design)"
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "item_id": "NUM-PAT-002",
+      "version": 1,
+      "status": "candidate",
+      "user_category": "Numerical Reasoning",
+      "technical_construct": "Inductive reasoning (arithmetic pattern abstraction)",
+      "subskill": "Inferring a two-input arithmetic rule from worked rows and applying it",
+      "item_format": "arithmetic_pattern_grid",
+      "difficulty_target": 3,
+      "difficulty_rationale": "The solver must infer a rule that combines the two left-hand numbers in each row to produce the right-hand number, using two fully worked rows as evidence, then apply it to the third. The rule (sum of the two squares) is not the first thing most people try, and the two worked rows over-determine it — they eliminate the tempting 'product' and 'square of the sum' readings. Discovering a non-obvious two-input rule from examples is solid medium difficulty; the arithmetic itself stays small.",
+      "prompt": "In each row, the third number is produced from the first two by the same rule. What number replaces the question mark?\n\nRow 1:  3,  4  ->  25\nRow 2:  5,  2  ->  29\nRow 3:  6,  3  ->  ?",
+      "option_a": "45",
+      "option_b": "81",
+      "option_c": "39",
+      "option_d": "18",
+      "correct_answer": "A",
+      "solution": "The third number is the sum of the squares of the first two. Row 1: 3^2 + 4^2 = 9 + 16 = 25. Row 2: 5^2 + 2^2 = 25 + 4 = 29. Both check out, so Row 3 is 6^2 + 3^2 = 36 + 9 = 45.",
+      "distractor_rationales": {
+        "A": "Correct: 6^2 + 3^2 = 45.",
+        "B": "81: squared the sum, (6+3)^2 = 81 — a common mis-reading of 'squares', and it fails on the given rows ((3+4)^2 = 49, not 25).",
+        "C": "39: squared only the first number and added the second, 6^2 + 3 = 39.",
+        "D": "18: multiplied the two numbers, 6 x 3 = 18, ignoring the squaring (and inconsistent with the worked rows)."
+      },
+      "expected_time_seconds": 70,
+      "minimum_reasonable_seconds": 18,
+      "timing_affects_score": false,
+      "visual_asset_required": false,
+      "visual_asset_id": null,
+      "visual_asset_spec": {
+        "type": "html_table",
+        "main_figure_description": "No drawing needed. Present the three rows as a clean three-column table (first number, second number, result) or as the aligned text shown in the prompt. Use the UI numeric font; right-align numbers; render the '?' in muted grey (#9AA2B1). Keep generous row spacing so the two example rows read clearly as worked examples and the third as the unknown.",
+        "option_descriptions": {
+          "A": "The number 45.",
+          "B": "The number 81.",
+          "C": "The number 39.",
+          "D": "The number 18."
+        },
+        "recommended_width": null,
+        "recommended_height": null,
+        "mobile_behavior": "The table is three short rows of small numbers and fits mobile width without scrolling. Options render as four number chips, 2 columns on mobile.",
+        "alt_text": "A small table with three rows; each of the first two rows shows two numbers and their result, and the third row shows two numbers and a question mark."
+      },
+      "display_spec": {
+        "component_type": "ArithmeticPatternQuestion",
+        "desktop_answer_columns": 4,
+        "mobile_answer_columns": 2,
+        "zoom_enabled": false,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Inferring a function of two inputs from worked examples is a clean inductive-reasoning task over quantity, distinct from a single-stream series because the solver must consider how two operands combine. Two worked rows make the rule identifiable rather than guessable.",
+      "knowledge_requirements": "Squaring small whole numbers and adding. No algebra notation required.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Two worked rows constrain the rule. Sum-of-squares fits both (25 and 29). Checked the natural competitors against BOTH rows: product (a*b) gives 12 and 10 (fail); square of the sum ((a+b)^2) gives 49 and 49 (fail); a^2 + b gives 13 and 27 (fail); a + b^2 gives 19 and 9 (fail); a*b + (a+b) gives 19 and 17 (fail). Only a^2 + b^2 satisfies both example rows, so the rule is identified and Row 3 = 45 is forced. Each distractor is the output of one of the eliminated rules or a partial application, i.e. a real reasoning slip rather than a rival rule that also fits the data."
+      },
+      "source_basis": [
+        "Two-operand rule induction from examples (inductive-reasoning item tradition; Carroll 1993, Induction factor)",
+        "Sum-of-squares and square-of-sum as classic confusable arithmetic rules used in pattern items"
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "item_id": "NUM-WRD-003",
+      "version": 1,
+      "status": "candidate",
+      "user_category": "Numerical Reasoning",
+      "technical_construct": "Quantitative reasoning (proportional reasoning with combined direct and inverse relations)",
+      "subskill": "Combining a direct proportion (output) with an inverse proportion (workers) and tracking direction",
+      "item_format": "word_problem",
+      "difficulty_target": 4,
+      "difficulty_rationale": "The solver must integrate two proportional relationships that pull in opposite directions: more fences means more time (direct), but more painters means less time (inverse). The difficulty is structural — recognising which quantity scales which way and combining them correctly — rather than computational; the numbers are deliberately small and divide cleanly. The distractors capture the three classic errors (drop one of the two scalings, or invert the worker relationship), which is what makes it a genuine Difficulty 4 reasoning item rather than an arithmetic exercise.",
+      "prompt": "3 painters can paint 2 fences in 4 hours. Working at the same steady rate, how many hours will 6 painters take to paint 8 fences?",
+      "option_a": "8",
+      "option_b": "16",
+      "option_c": "2",
+      "option_d": "32",
+      "correct_answer": "A",
+      "solution": "Find the rate per painter. 3 painters paint 2 fences in 4 hours, so the work rate is 2 fences / (3 painters x 4 hours) = 1/6 of a fence per painter-hour. With 6 painters the team paints 6 x 1/6 = 1 fence per hour. To paint 8 fences therefore takes 8 / 1 = 8 hours.",
+      "distractor_rationales": {
+        "A": "Correct: rate is 1/6 fence per painter-hour; 6 painters do 1 fence/hour; 8 fences take 8 hours.",
+        "B": "16: scaled the time up for the extra fences (8/2 = 4x, giving 16 hours) but ignored that the painters also doubled.",
+        "C": "2: accounted for doubling the painters but forgot the fences increased — computed the time for 6 painters to paint the original 2 fences.",
+        "D": "32: scaled by both ratios but treated more painters as MORE time (4 x 4 x 2) instead of less, inverting the worker relationship."
+      },
+      "expected_time_seconds": 100,
+      "minimum_reasonable_seconds": 25,
+      "timing_affects_score": false,
+      "visual_asset_required": false,
+      "visual_asset_id": null,
+      "visual_asset_spec": {
+        "type": "text",
+        "main_figure_description": "No figure. Render the problem as a single short paragraph in the UI font. No table or diagram is needed; keep numerals as digits for quick scanning.",
+        "option_descriptions": {
+          "A": "8 hours.",
+          "B": "16 hours.",
+          "C": "2 hours.",
+          "D": "32 hours."
+        },
+        "recommended_width": null,
+        "recommended_height": null,
+        "mobile_behavior": "Two short sentences; wraps cleanly on mobile. Options render as four chips (with the word 'hours' or a unit label), 2 columns on mobile.",
+        "alt_text": "A word problem about painters, fences, and hours, with four numeric answer choices."
+      },
+      "display_spec": {
+        "component_type": "WordProblemQuestion",
+        "desktop_answer_columns": 4,
+        "mobile_answer_columns": 2,
+        "zoom_enabled": false,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Proportional reasoning that combines a direct and an inverse relationship is a core quantitative-reasoning skill (Gq) and a classic developmental marker. Keeping the arithmetic trivial isolates the reasoning: the solver is tested on structuring the relationships, not on calculation.",
+      "knowledge_requirements": "Basic multiplication and division of small numbers and the everyday notions of rate and work. No formula memorisation.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "The constant-rate (man-hours) model is the standard and intended interpretation and yields a single value: time = (fences) x (painter-hours per fence) / (painters) = 8 x 6 / 6 = 8 hours. The phrase 'same steady rate' fixes the linear model and rules out start-up or diminishing-return readings. Each distractor is the result of a specific, nameable deviation (drop the painter scaling -> 16; drop the fence scaling -> 2; invert the painter scaling -> 32), so no distractor arises from an equally valid alternative model. Numbers chosen so the correct answer and all error answers are clean integers, avoiding any rounding ambiguity."
+      },
+      "source_basis": [
+        "Proportional and inverse-proportional reasoning as a quantitative-reasoning factor (Carroll 1993, Gq; Piagetian proportional-reasoning tradition)",
+        "Rate / work problems with combined direct and inverse scaling (standard quantitative aptitude item design)"
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "item_id": "NUM-LOG-004",
+      "version": 2,
+      "status": "candidate",
+      "user_category": "Numerical Reasoning",
+      "technical_construct": "Deductive quantitative reasoning (constraint satisfaction)",
+      "subskill": "Translating verbal numeric constraints into relations and using an ordering constraint to force a unique solution",
+      "item_format": "numerical_constraint_puzzle",
+      "difficulty_target": 4,
+      "difficulty_rationale": "A strong Difficulty 4. The solver must translate four interlocking verbal statements into relations, combine the three equalities into a single reduced relation (h3 + 2h4 = 10), enumerate the small candidate set it allows, and then apply the remaining ordering constraint ('the third is the smallest') to eliminate all but one candidate. The integration of multiple constraints plus a side ordering condition is what lifts it clearly above a routine multi-step item. It is NOT Difficulty 5, however, because the equalities collapse cleanly to one linear relation and the search space is only four cases that can be scanned by hand; there is no irreducible system or large search to manage. Arithmetic is trivial throughout.",
+      "prompt": "Four houses stand in a row. Each has a different house number, and every number is a whole number from 1 to 9.\n\n- The four numbers add up to 20.\n- The first house's number equals the sum of the third and fourth.\n- The second house's number is double the fourth's.\n- The third house has the smallest number of the four.\n\nWhat is the third house's number?",
+      "option_a": "2",
+      "option_b": "4",
+      "option_c": "6",
+      "option_d": "8",
+      "correct_answer": "A",
+      "solution": "Let the numbers be h1, h2, h3, h4. From the clues: h1 = h3 + h4 and h2 = 2 x h4. The total gives h1 + h2 + h3 + h4 = 20, so (h3 + h4) + 2h4 + h3 + h4 = 20, which simplifies to 2h3 + 4h4 = 20, i.e. h3 + 2h4 = 10. Test the few possibilities (h4 must be 1-4 to keep h3 positive): h4=4 -> h3=2, h2=8, h1=6, giving {6,8,2,4}; h4=3 -> h3=4 with set {7,6,4,3}; h4=2 -> h3=6 with set {8,4,6,2}; h4=1 -> h3=8 with set {9,2,8,1}. The last clue requires h3 to be the smallest of the four. Only the first case qualifies (2 is the smallest of 6,8,2,4); in every other case h3 is not the smallest. So h3 = 2.",
+      "distractor_rationales": {
+        "A": "Correct: the only assignment where the third number is also the smallest gives h3 = 2.",
+        "B": "4: comes from the h4=3 branch (numbers 7,6,4,3) — reached by solving the equalities but skipping the 'third is the smallest' check, or by reading off the fourth house in the correct solution.",
+        "C": "6: the first house's number in the correct solution (answered the wrong house), and also the h3 value of the h4=2 branch.",
+        "D": "8: the second house's number in the correct solution (answered the wrong house), and also the h3 value of the h4=1 branch."
+      },
+      "expected_time_seconds": 150,
+      "minimum_reasonable_seconds": 35,
+      "timing_affects_score": false,
+      "visual_asset_required": false,
+      "visual_asset_id": null,
+      "visual_asset_spec": {
+        "type": "text",
+        "main_figure_description": "No figure required. Render the setup sentence followed by the four constraints as a short bulleted list in the UI font, then the question. Keep each constraint on its own line for scannability. A row of four small empty boxes labelled 1st-4th could optionally be shown above the clues for orientation, but it is not necessary and should be omitted if it adds clutter on mobile.",
+        "option_descriptions": {
+          "A": "The number 2.",
+          "B": "The number 4.",
+          "C": "The number 6.",
+          "D": "The number 8."
+        },
+        "recommended_width": null,
+        "recommended_height": null,
+        "mobile_behavior": "Four short bullet lines plus a one-line question; fits mobile width with no scrolling beyond the clue list. Options render as four number chips, 2 columns on mobile. No zoom needed.",
+        "alt_text": "A logic puzzle describing four house numbers with four numeric constraints, followed by four answer choices."
+      },
+      "display_spec": {
+        "component_type": "NumericConstraintQuestion",
+        "desktop_answer_columns": 4,
+        "mobile_answer_columns": 2,
+        "zoom_enabled": false,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Constraint-satisfaction over numbers measures deductive quantitative reasoning: representing relations, combining them, and using a side constraint to select among candidates. It complements the inductive items (sequence, pattern) by testing deduction rather than rule discovery, while keeping computation minimal.",
+      "knowledge_requirements": "Addition, doubling, and comparing small whole numbers. No algebraic technique is required, though it can be solved with light algebra.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Uniqueness verified by exhaustion. The equalities reduce the system to h3 + 2h4 = 10 with h1 = h3 + h4 and h2 = 2h4, all distinct whole numbers in 1-9. h4 must be 1,2,3, or 4 (h4>=5 forces h3<=0). The four candidates are: h4=4 -> {h1,h2,h3,h4} = {6,8,2,4}; h4=3 -> {7,6,4,3}; h4=2 -> {8,4,6,2}; h4=1 -> {9,2,8,1}. All four satisfy the sum, the two equalities, the 1-9 range, and distinctness. The ordering constraint 'h3 is the smallest' is satisfied ONLY by the h4=4 case (h3=2 is the minimum of {6,8,2,4}); in the other three, h3 is not the minimum. Hence the full set of constraints has exactly one solution and h3 = 2 is forced. Each distractor is a value present in the solution under a wrong question reading (h1=6, h2=8) or in a rejected branch (h3=4 when the ordering clue is ignored), so distractors reflect genuine slips, not alternative valid solutions."
+      },
+      "source_basis": [
+        "Deductive constraint-satisfaction reasoning with numeric variables (analytic/deductive reasoning tradition; Carroll 1993, Sequential Reasoning)",
+        "Use of an inequality/ordering constraint to force uniqueness in small integer systems (standard logic-puzzle item design)"
+      ],
+      "review_status": "revised"
     }
   ]
 }
