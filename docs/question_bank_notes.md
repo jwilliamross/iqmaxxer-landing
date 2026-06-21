@@ -29,3 +29,10 @@ Working notes for the IQMaxxer draft question bank (`data/question_bank_draft.js
 - `NUM-PAT-002` — v1 — Difficulty 3 — accepted; may test at easy end of D3
 - `NUM-WRD-003` — v1 — Difficulty 4 — accepted
 - `NUM-LOG-004` — v2 — Difficulty 4 — accepted after downgrade from D5; strong D4 constraint puzzle, but not true D5 because the system reduces cleanly to a four-case scan
+
+## Logical Reasoning Micro-Batch 1 Status
+
+- `LOG-SYL-001` — v1 — Difficulty 2 — accepted
+- `LOG-CON-002` — v2 — Difficulty 3 — accepted after wording fix; changed rule so actual vault entry cleanly entails clearance
+- `LOG-ORD-003` — v2 — Difficulty 3 — accepted after downgrade from D4; answer is forced, but first place can be derived by direct elimination
+- `LOG-GRD-004` — v2 — Difficulty 4 — accepted after downgrade from D5; strong conditional-grid item, but not true D5 because the chain is short once Ben = Robot is derived

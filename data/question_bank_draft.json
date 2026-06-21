@@ -778,6 +778,258 @@
         "Use of an inequality/ordering constraint to force uniqueness in small integer systems (standard logic-puzzle item design)"
       ],
       "review_status": "revised"
+    },
+    {
+      "item_id": "LOG-SYL-001",
+      "version": 1,
+      "status": "candidate",
+      "user_category": "Logical Reasoning",
+      "technical_construct": "Deductive reasoning (categorical syllogism)",
+      "subskill": "Drawing a valid categorical conclusion and rejecting illicit conversions",
+      "item_format": "syllogism",
+      "difficulty_target": 2,
+      "difficulty_rationale": "A two-premise categorical syllogism in the valid Celarent form (All A are B; No B are C; therefore No A are C). One chaining step yields the conclusion. The distractors are the standard categorical errors — illicit conversion of a premise and an unwarranted existential claim — so the item tests whether the solver follows the direction of the relations rather than just word-matching. Single inference, neutral made-up rule, easy end of the range.",
+      "prompt": "Assume both statements are true:\n\n1. Every member of the Zorn Club wears a blue hat.\n2. No one wearing a blue hat is allowed into the library.\n\nWhich statement MUST be true?",
+      "option_a": "No member of the Zorn Club is allowed into the library.",
+      "option_b": "Some members of the Zorn Club are allowed into the library.",
+      "option_c": "Anyone who is not allowed into the library is a member of the Zorn Club.",
+      "option_d": "Everyone who wears a blue hat is a member of the Zorn Club.",
+      "correct_answer": "A",
+      "solution": "Every Zorn Club member wears a blue hat (premise 1), and no blue-hat wearer is allowed into the library (premise 2). So every Zorn Club member is barred from the library: no member is allowed in. That is option A.",
+      "distractor_rationales": {
+        "A": "Correct: chaining 'all members wear blue hats' with 'no blue-hat wearer is allowed in' gives 'no member is allowed in.'",
+        "B": "Directly contradicts the valid conclusion; chosen by treating the categories as overlapping when the premises forbid it.",
+        "C": "Reverses premise 2 (illicit conversion): being barred from the library does not make someone a Zorn Club member — many non-members could also be barred.",
+        "D": "Reverses premise 1 (illicit conversion): all members wear blue hats, but that does not mean every blue-hat wearer is a member."
+      },
+      "expected_time_seconds": 50,
+      "minimum_reasonable_seconds": 12,
+      "timing_affects_score": false,
+      "visual_asset_required": false,
+      "visual_asset_id": null,
+      "visual_asset_spec": {
+        "type": "text",
+        "main_figure_description": "No figure. Render the two numbered premises on separate lines, then the question. Use the UI font; keep the premises visually grouped so they read as a single 'given' block.",
+        "option_descriptions": {
+          "A": "Statement: no Zorn Club member is allowed into the library.",
+          "B": "Statement: some Zorn Club members are allowed into the library.",
+          "C": "Statement: anyone barred from the library is a Zorn Club member.",
+          "D": "Statement: every blue-hat wearer is a Zorn Club member."
+        },
+        "recommended_width": null,
+        "recommended_height": null,
+        "mobile_behavior": "Short text; premises and options wrap cleanly. Options render as four full-width rows on mobile (text answers, single column) for readability.",
+        "alt_text": "Two logical premises about club members, blue hats, and a library, followed by four statements to evaluate."
+      },
+      "display_spec": {
+        "component_type": "SyllogismQuestion",
+        "desktop_answer_columns": 1,
+        "mobile_answer_columns": 1,
+        "zoom_enabled": false,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Categorical syllogisms are a foundational measure of deductive reasoning. Using abstract, fully stipulated categories prevents reliance on world knowledge, so only the logical form determines the answer.",
+      "knowledge_requirements": "None. The terms are arbitrary labels; no knowledge of clubs, hats, or libraries is needed beyond what the premises state.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "The premises have the form All Z are H; No H are L. Valid conclusion: No Z are L (option A) — the only statement entailed. Checked each distractor: B contradicts A; C is the converse of premise 2 (not entailed, since L's complement is not pinned to Z); D is the converse of premise 1 (not entailed). None of B, C, D follows from the premises, so exactly one option must be true. No real-world assumption is required because both premises are stipulated as true."
+      },
+      "source_basis": [
+        "Categorical syllogistic reasoning and validity (Aristotelian logic; Johnson-Laird mental-model account of syllogisms)",
+        "Illicit conversion as a canonical syllogistic error (standard deductive-reasoning item design)"
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "item_id": "LOG-CON-002",
+      "version": 2,
+      "status": "candidate",
+      "user_category": "Logical Reasoning",
+      "technical_construct": "Conditional reasoning (necessary vs sufficient conditions)",
+      "subskill": "Interpreting a necessary condition signalled by 'unless', chaining a conditional, and distinguishing necessary from sufficient",
+      "item_format": "conditional_logic",
+      "difficulty_target": 3,
+      "difficulty_rationale": "The first statement uses 'unless', which makes clearance a NECESSARY condition for entering (entering implies clearance), not a sufficient one — the classic point of confusion. The solver must read that direction correctly, chain it with a second conditional (clearance implies fingerprinted), and apply it to a stated fact. The distractors are the three standard conditional errors: treating a necessary condition as sufficient, affirming the consequent (converse), and contradicting the derived fact. Medium difficulty driven by the 'unless'/necessary-condition direction plus a one-step chain.",
+      "prompt": "Assume both statements are true:\n\n1. No one enters the vault unless they have security clearance.\n2. Everyone who has security clearance has been fingerprinted.\n\nMaria entered the vault. Which statement MUST be true?",
+      "option_a": "Maria has been fingerprinted.",
+      "option_b": "Having security clearance is enough to let someone enter the vault.",
+      "option_c": "Everyone who has been fingerprinted may enter the vault.",
+      "option_d": "Maria does not have security clearance.",
+      "correct_answer": "A",
+      "solution": "'No one enters the vault unless they have clearance' means entering REQUIRES clearance: since Maria entered, she must have clearance. Statement 2 says everyone with clearance has been fingerprinted. So Maria, having clearance, has been fingerprinted. That is option A.",
+      "distractor_rationales": {
+        "A": "Correct: entered -> has clearance (from 'unless', a necessary condition) -> has been fingerprinted (statement 2).",
+        "B": "Treats the necessary condition as sufficient. 'Unless' makes clearance necessary for entry, not a guarantee of entry; the statements never say clearance is enough.",
+        "C": "Affirms the consequent / reverses statement 2: being fingerprinted does not imply clearance, and certainly not permission to enter.",
+        "D": "Contradicts the valid chain: since Maria entered, she must HAVE clearance, not lack it."
+      },
+      "expected_time_seconds": 70,
+      "minimum_reasonable_seconds": 18,
+      "timing_affects_score": false,
+      "visual_asset_required": false,
+      "visual_asset_id": null,
+      "visual_asset_spec": {
+        "type": "text",
+        "main_figure_description": "No figure. Render the two numbered conditionals, then the fact ('Maria entered the vault.'), then the question, each visually separated. Keep 'unless' in the first statement in normal weight (do not bold or otherwise cue it).",
+        "option_descriptions": {
+          "A": "Statement: Maria has been fingerprinted.",
+          "B": "Statement: clearance is sufficient for entry.",
+          "C": "Statement: every fingerprinted person may enter.",
+          "D": "Statement: Maria lacks clearance."
+        },
+        "recommended_width": null,
+        "recommended_height": null,
+        "mobile_behavior": "Short text block; wraps cleanly. Options render single-column full-width on mobile because they are sentences.",
+        "alt_text": "Two conditional statements about entering a vault, clearance, and fingerprinting, a fact about Maria, and four statements to evaluate."
+      },
+      "display_spec": {
+        "component_type": "ConditionalLogicQuestion",
+        "desktop_answer_columns": 1,
+        "mobile_answer_columns": 1,
+        "zoom_enabled": false,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Conditional reasoning, especially the necessary-versus-sufficient distinction signalled by words like 'unless', is a core deductive skill and a well-documented source of systematic error (Wason selection-task tradition). Chaining two conditionals and applying them to a fact isolates valid inference from the tempting converse.",
+      "knowledge_requirements": "None beyond ordinary reading of 'unless', 'must', and 'enough'. No security-domain knowledge is used; the rules are fully stipulated.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Formalization: enter -> clearance (from 'No one enters unless they have clearance'); clearance -> fingerprinted. Given enter(Maria), modus ponens twice yields fingerprinted(Maria) = option A, the only entailed statement. B fails because neither premise asserts clearance -> enter (necessary is not sufficient). C fails because it reverses statement 2 (fingerprinted -> clearance is not given). D fails because it contradicts the derived clearance(Maria). Exactly one option is forced. Wording was revised from 'You may enter the vault only if you have security clearance' to 'No one enters the vault unless they have security clearance' so the stated fact (Maria actually entered) connects directly to the rule: actual entry, not merely permission to enter, now entails clearance. The necessary-condition reading is preserved ('No X unless Y' = X -> Y)."
+      },
+      "source_basis": [
+        "Conditional reasoning and necessary/sufficient conditions (Wason selection task; standard logic of 'unless' as a necessary condition)",
+        "Affirming-the-consequent and necessary-as-sufficient as canonical conditional errors (deductive-reasoning item design)"
+      ],
+      "review_status": "revised"
+    },
+    {
+      "item_id": "LOG-ORD-003",
+      "version": 2,
+      "status": "candidate",
+      "user_category": "Logical Reasoning",
+      "technical_construct": "Deductive reasoning (linear ordering / sequencing)",
+      "subskill": "Deriving a forced fact from ordering constraints when the full order is not unique",
+      "item_format": "ordering_logic",
+      "difficulty_target": 3,
+      "difficulty_rationale": "A five-position ordering with four constraints whose full order is not unique — two arrangements satisfy them — so a 'cannot be determined' distractor is available to tempt solvers who conflate an underdetermined whole order with an undetermined first place. However, first place is forced by a short, direct elimination that does not require enumerating the feasible orders: T is last; S is not first; R follows Q so is not first; Q follows P so is not first; therefore P is first. Because the forced fact is reachable in a few one-step exclusions, the item is a solid Difficulty 3 rather than a 4 — the 'cannot be determined' trap is real but defeatable without reasoning over the full set of models. Light, structural, no arithmetic.",
+      "prompt": "Five runners — P, Q, R, S, and T — finished a race in positions 1st through 5th, with no ties. From the results:\n\n- Q finished immediately ahead of R (Q's position is exactly one before R's).\n- P finished somewhere ahead of Q.\n- T finished last.\n- S did not finish first.\n\nWho MUST have finished first?",
+      "option_a": "P",
+      "option_b": "Q",
+      "option_c": "S",
+      "option_d": "It cannot be determined from the information given.",
+      "correct_answer": "A",
+      "solution": "T is 5th. Q must sit immediately before R, so the (Q,R) block occupies positions (1,2), (2,3), or (3,4). It cannot be (1,2), because P must be ahead of Q and nothing is ahead of position 1. If (Q,R) = (2,3), then P must be 1st and S takes 4th: order P, Q, R, S, T. If (Q,R) = (3,4), then P must be ahead of Q (1st or 2nd) and S is not 1st, forcing S into 2nd and P into 1st: order P, S, Q, R, T. Both feasible orders put P first. So P must have finished first.",
+      "distractor_rationales": {
+        "A": "Correct: in every arrangement consistent with the clues, P is 1st.",
+        "B": "Q: chosen by starting the 'P ahead of Q, Q before R' chain at Q and forgetting that P must precede Q, so someone is always ahead of Q.",
+        "C": "S: chosen by misreading 'S did not finish first' or by assuming S could take an early slot; in fact S is never first.",
+        "D": "Cannot be determined: the trap. The full finishing order is indeed not unique (two orders fit), but first place is the same in both, so it IS determined."
+      },
+      "expected_time_seconds": 110,
+      "minimum_reasonable_seconds": 28,
+      "timing_affects_score": false,
+      "visual_asset_required": false,
+      "visual_asset_id": null,
+      "visual_asset_spec": {
+        "type": "text",
+        "main_figure_description": "No figure required. Render the setup sentence, then the four constraints as a bulleted list (one per line), then the question. A row of five small position labels (1st-5th) may optionally be shown for orientation but is not necessary; omit if it adds clutter on mobile.",
+        "option_descriptions": {
+          "A": "Answer: P.",
+          "B": "Answer: Q.",
+          "C": "Answer: S.",
+          "D": "Answer: cannot be determined."
+        },
+        "recommended_width": null,
+        "recommended_height": null,
+        "mobile_behavior": "Four short bullet lines plus a one-line question fit mobile width. Options render as four rows; A/B/C are single letters and D is a short phrase, so use single-column full-width rows for alignment.",
+        "alt_text": "An ordering puzzle about five runners finishing a race, with four answer choices."
+      },
+      "display_spec": {
+        "component_type": "OrderingLogicQuestion",
+        "desktop_answer_columns": 2,
+        "mobile_answer_columns": 1,
+        "zoom_enabled": false,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Linear-ordering deduction (the 'logic games' family) measures the ability to combine relational constraints and reason about what is forced versus what merely varies. Asking for a forced fact under a non-unique order targets the harder, more diagnostic version of the skill.",
+      "knowledge_requirements": "None beyond understanding race positions and 'immediately ahead of', 'ahead of', 'last', and 'first'.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Exhaustive check. T=5 is fixed. The (Q,R) adjacency block can be at (1,2), (2,3), or (3,4). (1,2) is impossible because P must precede Q. (2,3) forces P=1, S=4 (S not first is satisfied): order P,Q,R,S,T. (3,4) forces P and S into positions 1,2 with S not first, hence S=2, P=1: order P,S,Q,R,T. These are the only two feasible orders, and P is 1st in both, so 'P finished first' is forced and unique; options B and C are first in no feasible order, and D is wrong because first place is determined even though the complete order is not. Independent of enumeration, P is also forced first by direct elimination: T is last, S is not first, R follows Q, and Q follows P, leaving only P for first. Exactly one option must be true."
+      },
+      "source_basis": [
+        "Linear ordering / sequencing deduction (analytical-reasoning 'logic games' tradition)",
+        "Forced-inference (must-be-true) reasoning over the set of feasible models (deductive-reasoning factor; Carroll 1993, Sequential Reasoning)"
+      ],
+      "review_status": "revised"
+    },
+    {
+      "item_id": "LOG-GRD-004",
+      "version": 2,
+      "status": "candidate",
+      "user_category": "Logical Reasoning",
+      "technical_construct": "Deductive reasoning (constraint-satisfaction matching with an embedded conditional)",
+      "subskill": "Resolving a matching grid where a conditional clue must be used (via modus tollens) to force uniqueness",
+      "item_format": "constraint_grid",
+      "difficulty_target": 4,
+      "difficulty_rationale": "A strong Difficulty 4. Four people must be matched one-to-one with four topics under five clues, one of which is a conditional. The non-conditional clues alone leave the puzzle underdetermined: they force Cara=Volcano and Ben=Robot but leave Ada's topic ambiguous between Comet and Engine. The solver must combine a derived fact (Ben chose Robot, so 'Ben chose Engine' is false) with the conditional clue and apply modus tollens to eliminate Ada=Comet, giving Ada=Engine. That integration step — carrying an intermediate result into a conditional rather than reading the answer off a straight elimination — is what makes it a genuine Difficulty 4. It is NOT Difficulty 5, however, because once Ben=Robot is forced the remaining work is a single modus tollens over a tiny model space (only two candidate assignments to rule between); there is no large search and no multiple interacting conditionals to manage. Arithmetic-free, four entities, mobile-readable.",
+      "prompt": "Four students — Ada, Ben, Cara, and Dan — each chose a different project topic: Volcano, Robot, Comet, or Engine. From the following, all true:\n\n- Ada chose Comet or Engine.\n- Cara chose Volcano.\n- Ben did not choose Comet.\n- Ben did not choose Engine.\n- If Ada chose Comet, then Ben chose Engine.\n\nWhich topic did Ada choose?",
+      "option_a": "Engine",
+      "option_b": "Comet",
+      "option_c": "Robot",
+      "option_d": "Volcano",
+      "correct_answer": "A",
+      "solution": "Cara chose Volcano. Ben did not choose Comet, Engine, or Volcano (Volcano is Cara's), so Ben chose Robot. Now use the conditional: 'If Ada chose Comet, then Ben chose Engine.' Ben chose Robot, so 'Ben chose Engine' is false; therefore the condition 'Ada chose Comet' must also be false (if it were true, Ben would have to be Engine). So Ada did not choose Comet. Since Ada chose Comet or Engine, Ada chose Engine. (Dan then takes the remaining topic, Comet.)",
+      "distractor_rationales": {
+        "A": "Correct: Ben = Robot makes the conditional's consequent false, so by modus tollens Ada is not Comet; with 'Comet or Engine', Ada = Engine.",
+        "B": "Comet: chosen by narrowing Ada to {Comet, Engine} from clue 1 but failing to apply the conditional clue that rules Comet out — the most common miss.",
+        "C": "Robot: confuses Ada with Ben, who is the one forced to Robot.",
+        "D": "Volcano: confuses Ada with Cara, who is given Volcano."
+      },
+      "expected_time_seconds": 150,
+      "minimum_reasonable_seconds": 35,
+      "timing_affects_score": false,
+      "visual_asset_required": false,
+      "visual_asset_id": null,
+      "visual_asset_spec": {
+        "type": "text",
+        "main_figure_description": "No figure required. Render the setup sentence, then the five clues as a bulleted list (one per line, the conditional clue last), then the question. A 4x4 person-by-topic tick grid could optionally be offered as a scratch aid, but it is not necessary to state the puzzle and should be omitted from the stem to avoid mobile clutter.",
+        "option_descriptions": {
+          "A": "Topic: Engine.",
+          "B": "Topic: Comet.",
+          "C": "Topic: Robot.",
+          "D": "Topic: Volcano."
+        },
+        "recommended_width": null,
+        "recommended_height": null,
+        "mobile_behavior": "Five short bullet lines plus a one-line question fit mobile width with at most minor scrolling. Options are single words; render as four chips, 2 columns on mobile.",
+        "alt_text": "A matching puzzle assigning four students to four project topics under five clues, with four topic answer choices."
+      },
+      "display_spec": {
+        "component_type": "ConstraintGridQuestion",
+        "desktop_answer_columns": 4,
+        "mobile_answer_columns": 2,
+        "zoom_enabled": false,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Constraint-satisfaction matching with an embedded conditional measures integrated deductive reasoning: the solver must maintain partial assignments, derive an intermediate fact, and feed it into a conditional to resolve the remaining ambiguity. This goes beyond single-rule application and beyond pure elimination.",
+      "knowledge_requirements": "None. Topic names are arbitrary labels; no knowledge of volcanoes, robots, comets, or engines is used.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Uniqueness verified. Cara = Volcano (clue 2). Ben is excluded from Comet (clue 3), Engine (clue 4), and Volcano (taken), so Ben = Robot — forced. Remaining topics Comet and Engine go to Ada and Dan. Clue 1 limits Ada to {Comet, Engine}. Clue 5 (Ada=Comet -> Ben=Engine): since Ben=Robot, the consequent is false, so by modus tollens Ada is not Comet; hence Ada = Engine and Dan = Comet. This is the only assignment satisfying all five clues: without clue 5 there would be two solutions (Ada=Comet/Dan=Engine and Ada=Engine/Dan=Comet), so clue 5 is load-bearing and the solver must use it. Exactly one answer (Engine). Each distractor is a real person-topic pairing in or near the solution (a genuine slip), not an alternative consistent assignment."
+      },
+      "source_basis": [
+        "Constraint-satisfaction / matching deduction (analytical-reasoning grid-puzzle tradition)",
+        "Conditional elimination by modus tollens within a multi-constraint model (deductive-reasoning item design; Johnson-Laird mental-model reasoning)"
+      ],
+      "review_status": "revised"
     }
   ]
 }
