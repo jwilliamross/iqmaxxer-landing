@@ -2,6 +2,18 @@
 
 Working notes for the IQMaxxer draft question bank (`data/question_bank_draft.json`). These items are **not** wired into the live quiz and are **not** seeded into Supabase.
 
+## LIVE PRODUCTION BANK (Phase 1 — seeded 2026-06-21)
+
+The live quiz reads from the Supabase `public.questions` table (not the draft JSON). As of Phase 1 it holds **25 text questions**: the 5 original hand-authored items plus 20 new items seeded via `db/seed_text_questions_phase1.sql`.
+
+- Balanced **5 per category** (Verbal / Numerical / Logical / Spatial / Abstract).
+- Difficulty **ramps D1→D5** in delivery order (questions are served ordered by `id` ascending).
+- Each row has a stable `code` (e.g. `NUM-002`); the seed is **idempotent** (upsert on `code`), so re-running it won't duplicate.
+- These are freshly authored text items, distinct from the draft candidates below (`NUM-SEQ-001`, etc.), which remain reserved for later use.
+- The 8 **visual** Abstract/Spatial items (draft candidates with `visual_asset_required: true`) are **not** in the live bank yet — they arrive in Phase 3 (SVG assets + renderers).
+
+To change the live text bank: edit `db/seed_text_questions_phase1.sql` and re-run it against Supabase.
+
 ## Candidates
 
 - **ABS-MAT-003 v2** accepted as Abstract Reasoning Micro-Batch 1 candidate. Proof image must be regenerated later.
