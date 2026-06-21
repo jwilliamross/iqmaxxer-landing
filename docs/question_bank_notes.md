@@ -36,3 +36,10 @@ Working notes for the IQMaxxer draft question bank (`data/question_bank_draft.js
 - `LOG-CON-002` — v2 — Difficulty 3 — accepted after wording fix; changed rule so actual vault entry cleanly entails clearance
 - `LOG-ORD-003` — v2 — Difficulty 3 — accepted after downgrade from D4; answer is forced, but first place can be derived by direct elimination
 - `LOG-GRD-004` — v2 — Difficulty 4 — accepted after downgrade from D5; strong conditional-grid item, but not true D5 because the chain is short once Ben = Robot is derived
+
+## Verbal Reasoning Micro-Batch 1 Status
+
+- `VER-ANA-001` — v1 — Difficulty 2 — accepted
+- `VER-CLS-002` — v1 — Difficulty 3 — accepted; classification item judged clean enough despite possible surface grouping concerns
+- `VER-INF-003` — v2 — Difficulty 4 — accepted after wording fix; changed borrowing rule so actual borrowing cleanly entails non-reference status
+- `VER-REL-004` — v1 — Difficulty 5 — accepted; genuine parallel-flaw / argument-structure item, but monitor mobile reading load in piloting

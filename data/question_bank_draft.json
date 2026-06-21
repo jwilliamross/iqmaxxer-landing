@@ -1030,6 +1030,258 @@
         "Conditional elimination by modus tollens within a multi-constraint model (deductive-reasoning item design; Johnson-Laird mental-model reasoning)"
       ],
       "review_status": "revised"
+    },
+    {
+      "item_id": "VER-ANA-001",
+      "version": 1,
+      "status": "candidate",
+      "user_category": "Verbal Reasoning",
+      "technical_construct": "Analogical reasoning (semantic relation mapping)",
+      "subskill": "Identifying an instrument-to-action relation and matching it while rejecting reversed or mistyped relations",
+      "item_format": "verbal_analogy",
+      "difficulty_target": 2,
+      "difficulty_rationale": "A single, clearly stated relationship — an instrument paired with the action it is used to perform — applied to one new pair. The distractors are the three standard analogy errors: the relation reversed, an instrument paired with a substance instead of an action, and an object paired with a property. One mapping step, common words, no obscure vocabulary. Easy end of the range.",
+      "prompt": "KNIFE is to CUT as ___ is to ___.\n\n(A knife is an instrument used to cut. Choose the pair with the same relationship.)",
+      "option_a": "PEN : WRITE",
+      "option_b": "CUT : KNIFE",
+      "option_c": "PEN : INK",
+      "option_d": "SCISSORS : SHARP",
+      "correct_answer": "A",
+      "solution": "A knife is an instrument used to perform the action 'cut'. The same relationship is 'a pen is an instrument used to perform the action write' — instrument to its action. That is option A.",
+      "distractor_rationales": {
+        "A": "Correct: instrument (pen) paired with the action it performs (write), matching knife-to-cut.",
+        "B": "Reverses the relation: this is action-to-instrument, the mirror image of the target.",
+        "C": "Wrong relation type: a pen paired with the substance it uses (ink), not with the action it performs.",
+        "D": "Wrong relation type: an instrument paired with one of its properties (sharp), not with an action."
+      },
+      "expected_time_seconds": 35,
+      "minimum_reasonable_seconds": 8,
+      "timing_affects_score": false,
+      "visual_asset_required": false,
+      "visual_asset_id": null,
+      "visual_asset_spec": {
+        "type": "text",
+        "main_figure_description": "No figure. Render the analogy stem on one line with the parenthetical relation cue beneath it in slightly muted text. Present options as four word-pairs using a colon between the two words.",
+        "option_descriptions": {
+          "A": "Pair: pen and write.",
+          "B": "Pair: cut and knife.",
+          "C": "Pair: pen and ink.",
+          "D": "Pair: scissors and sharp."
+        },
+        "recommended_width": null,
+        "recommended_height": null,
+        "mobile_behavior": "Short word-pairs; render as four chips, 2 columns on mobile.",
+        "alt_text": "A verbal analogy with the stem knife to cut, and four word-pair answer choices."
+      },
+      "display_spec": {
+        "component_type": "VerbalAnalogyQuestion",
+        "desktop_answer_columns": 4,
+        "mobile_answer_columns": 2,
+        "zoom_enabled": false,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Verbal analogies measure analogical reasoning — inferring a relation from one pair and mapping it onto another. Stating the relation explicitly removes vocabulary load so the item tests the mapping, not word knowledge.",
+      "knowledge_requirements": "None beyond the everyday meanings of the listed common words.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Target relation is fixed by the stem and the parenthetical: instrument -> action performed with it. Only A (pen -> write) instantiates it. B is the reverse (action -> instrument); C is instrument -> substance used; D is object -> property. None of B, C, D is an instrument-to-action pair, so exactly one option matches. The relation is stated, so no taste or interpretation is involved."
+      },
+      "source_basis": [
+        "Analogical reasoning as relation inference and mapping (Sternberg 1977, componential analysis of analogies)",
+        "Relation-direction and relation-type distractors as standard analogy item design"
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "item_id": "VER-CLS-002",
+      "version": 1,
+      "status": "candidate",
+      "user_category": "Verbal Reasoning",
+      "technical_construct": "Verbal classification (functional category abstraction)",
+      "subskill": "Grouping by underlying function and resisting a salient surface category",
+      "item_format": "odd_one_out",
+      "difficulty_target": 3,
+      "difficulty_rationale": "Three of the four words name devices whose function is to RESIST or STOP motion; the fourth names a device whose function is the opposite — to PRODUCE motion. The intended basis (function) is not the most salient one: the words also split by domain (air, land, water), which tempts a domain-based answer. Medium difficulty comes from having to abstract the functional category and override the surface domain split, while the functional binary (produces motion vs opposes motion) isolates exactly one word.",
+      "prompt": "Three of these words go together in a clear way, and one does not. Which word does NOT belong with the others?",
+      "option_a": "anchor",
+      "option_b": "brake",
+      "option_c": "sail",
+      "option_d": "parachute",
+      "correct_answer": "C",
+      "solution": "An anchor stops a boat from drifting, a brake stops a vehicle from rolling, and a parachute slows a falling person — all three are devices whose purpose is to oppose or stop motion. A sail does the opposite: it harnesses wind to CREATE motion. On the function 'opposes motion versus produces motion', the sail is the only one that produces motion, so it does not belong.",
+      "distractor_rationales": {
+        "A": "anchor: belongs — its function is to stop motion (drifting). Tempting only if one groups by 'used while moving', but an anchor still opposes motion like the brake and parachute.",
+        "B": "brake: belongs — its function is to stop motion.",
+        "C": "Correct: a sail produces motion rather than opposing it, the only word on that side of the functional split.",
+        "D": "parachute: belongs — it slows a fall. Tempting if one groups by domain (it is the only 'air' item), but by function it joins the motion-stoppers."
+      },
+      "expected_time_seconds": 55,
+      "minimum_reasonable_seconds": 14,
+      "timing_affects_score": false,
+      "visual_asset_required": false,
+      "visual_asset_id": null,
+      "visual_asset_spec": {
+        "type": "text",
+        "main_figure_description": "No figure. Render the instruction line, then the four single words as four selectable options. Keep the words in lower case and equally weighted so no word is visually emphasized.",
+        "option_descriptions": {
+          "A": "Word: anchor.",
+          "B": "Word: brake.",
+          "C": "Word: sail.",
+          "D": "Word: parachute."
+        },
+        "recommended_width": null,
+        "recommended_height": null,
+        "mobile_behavior": "Four short words; render as chips, 2 columns on mobile.",
+        "alt_text": "A choose-the-odd-one-out item with four words: anchor, brake, sail, parachute."
+      },
+      "display_spec": {
+        "component_type": "ClassificationQuestion",
+        "desktop_answer_columns": 4,
+        "mobile_answer_columns": 2,
+        "zoom_enabled": false,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Verbal classification measures the inductive ability to find the organizing category behind a set. Using a functional category that competes with a salient surface category targets abstraction rather than mere association.",
+      "knowledge_requirements": "Only the everyday meanings of the four common words; no specialist or cultural knowledge.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Intended basis: function with respect to motion. Anchor, brake, parachute all OPPOSE/stop motion; sail PRODUCES motion. This binary places exactly one word (sail) on the minority side, so the odd one is unique under the intended basis. Checked rival bases: by domain (water/land/air) the four split 1-1-1-1 with sail and brake both arguably 'land/wind', giving no single odd word; by 'used during motion vs at rest', anchor is borderline but still functions to oppose motion, so this basis does not yield a cleaner single answer than the functional one. No rival basis isolates a different single word as cleanly, so sail is the defensible unique answer and the choice does not depend on taste."
+      },
+      "source_basis": [
+        "Verbal classification / odd-one-out as an inductive-reasoning measure (Carroll 1993, Induction factor)",
+        "Functional versus perceptual categorization and salient-feature override (categorization research on abstract grouping)"
+      ],
+      "review_status": "reviewed"
+    },
+    {
+      "item_id": "VER-INF-003",
+      "version": 2,
+      "status": "candidate",
+      "user_category": "Verbal Reasoning",
+      "technical_construct": "Deductive inference from text (strict entailment)",
+      "subskill": "Separating what is strictly entailed from converse, biconditional, and necessary-vs-sufficient over-readings",
+      "item_format": "passage_inference",
+      "difficulty_target": 4,
+      "difficulty_rationale": "A three-sentence passage gives one borrowing rule, one labelling rule, and one fact. Exactly one conclusion is strictly entailed; the three distractors are the classic invalid extensions — treating the labelling rule as a biconditional, taking its converse, and treating a necessary condition as sufficient. The difficulty is structural: the solver must notice that the labelling rule yields nothing strict about Maria's specific book, and that only the borrowing rule plus the fact forces a conclusion. Short passage, common words; the work is in resisting plausible but unentailed readings.",
+      "prompt": "Read the passage, then answer using ONLY the information given.\n\nAt the Hill Street Library, any book that is borrowed is not a reference book. Every reference book in the library has a black label on its spine. Maria borrowed a book from the library yesterday.\n\nWhich statement MUST be true?",
+      "option_a": "The book Maria borrowed is not a reference book.",
+      "option_b": "The book Maria borrowed does not have a black label on its spine.",
+      "option_c": "Every book with a black label is a reference book.",
+      "option_d": "Every book without a black label can be borrowed.",
+      "correct_answer": "A",
+      "solution": "Any book that is borrowed is not a reference book, and Maria borrowed a book, so her book is not a reference book — option A. The labelling rule (every reference book has a black label) tells us only about reference books; it does not say non-reference books lack black labels, so we cannot conclude anything about the label on Maria's book.",
+      "distractor_rationales": {
+        "A": "Correct: 'any book that is borrowed is not a reference book' applies directly to Maria, who borrowed a book, so her book is not a reference book.",
+        "B": "Not entailed: the rule says reference books HAVE black labels, not that only reference books do. A non-reference book could still have a black label, so this treats the rule as a biconditional.",
+        "C": "Not entailed: this is the converse of 'every reference book has a black label' and does not follow from it.",
+        "D": "Not entailed: the passage says borrowed books are non-reference, not that every non-reference (or unlabelled) book may be borrowed. Inferring borrowability from the absence of a label reverses the borrowing rule — treating 'not a reference book' as sufficient for borrowing."
+      },
+      "expected_time_seconds": 95,
+      "minimum_reasonable_seconds": 24,
+      "timing_affects_score": false,
+      "visual_asset_required": false,
+      "visual_asset_id": null,
+      "visual_asset_spec": {
+        "type": "text",
+        "main_figure_description": "No figure. Render the instruction line, then the three-sentence passage as one short block, then the question. Keep the passage visually distinct (e.g., indented or boxed) from the question and options. Options are full sentences.",
+        "option_descriptions": {
+          "A": "Statement: Maria's book is not a reference book.",
+          "B": "Statement: Maria's book has no black label.",
+          "C": "Statement: every black-labelled book is a reference book.",
+          "D": "Statement: every book without a black label can be borrowed."
+        },
+        "recommended_width": null,
+        "recommended_height": null,
+        "mobile_behavior": "Three short sentences plus four sentence-length options; render options single-column full-width on mobile for readability.",
+        "alt_text": "A short library passage about borrowing rules and labels, followed by four statements to evaluate for what must be true."
+      },
+      "display_spec": {
+        "component_type": "PassageInferenceQuestion",
+        "desktop_answer_columns": 1,
+        "mobile_answer_columns": 1,
+        "zoom_enabled": false,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Drawing only strictly entailed conclusions from a short text measures deductive verbal reasoning and the discipline to avoid plausible-but-invalid inference — a core component of careful reading and reasoning, distinct from recall or interpretation.",
+      "knowledge_requirements": "None beyond ordinary reading. No knowledge of libraries is required; both rules are stipulated in the passage.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Formalization: borrow(x) -> not reference(x); reference(x) -> blacklabel(x); borrow(Maria's book). Modus ponens on the first rule gives not reference(Maria's book) = option A, strictly entailed and the only entailed option. B fails: reference -> blacklabel does not give not reference -> not blacklabel (no biconditional), so the label on a non-reference book is unknown. C fails: it is the converse of the labelling rule. D fails: borrow -> not reference does not yield its converse (not reference -> borrowable), so 'no label -> borrowable' does not follow. Exactly one option must be true; the others are each a named invalid inference, not a defensible alternative reading. Wording was revised from 'a book may be borrowed only if it is not a reference book' to 'any book that is borrowed is not a reference book' so the stated fact (Maria actually borrowed a book) connects directly to the rule, closing the permission-versus-actual-action gap."
+      },
+      "source_basis": [
+        "Textual entailment / necessary inference as deductive verbal reasoning (entailment-based reasoning tradition)",
+        "Converse, biconditional, and necessary-vs-sufficient errors as canonical invalid inferences (conditional-reasoning research)"
+      ],
+      "review_status": "revised"
+    },
+    {
+      "item_id": "VER-REL-004",
+      "version": 1,
+      "status": "candidate",
+      "user_category": "Verbal Reasoning",
+      "technical_construct": "Argument-structure reasoning (parallel reasoning / parallel flaw)",
+      "subskill": "Abstracting the logical form of an argument and matching the same form while rejecting valid forms and a different fallacy",
+      "item_format": "parallel_reasoning",
+      "difficulty_target": 5,
+      "difficulty_rationale": "The stimulus commits a specific fallacy — affirming the consequent — and the task is to find the option with the SAME logical form. This requires stripping away the wording and representing each of four arguments abstractly, then matching forms. The distractors are engineered to defeat shallow strategies: one is a VALID argument in the same subject matter (matches the words, not the form), one is a DIFFERENT fallacy (denying the antecedent, which catches solvers who detect 'flawed' without identifying which flaw), and one is another valid form with a negative conclusion. Genuine integrated structural reasoning that cannot be done by keyword matching — legitimately ceiling-level verbal reasoning. The honest risk (see batch note) is reading load: four mini-arguments must stay scannable on mobile, and the A-versus-C discrimination is hard by design, not by trickery.",
+      "prompt": "Consider this argument:\n\n'Every student who studied passed the test. Sara passed the test. So Sara must have studied.'\n\nThis argument is flawed. Which of the arguments below is flawed in the SAME way (same underlying structure)?",
+      "option_a": "Every cake made with sugar tastes sweet. This pudding tastes sweet. So this pudding was made with sugar.",
+      "option_b": "Every student who studied passed the test. Tom studied. So Tom passed the test.",
+      "option_c": "Every student who studied passed the test. Bea did not study. So Bea did not pass the test.",
+      "option_d": "No careless worker was promoted. Sam was promoted. So Sam was not careless.",
+      "correct_answer": "A",
+      "solution": "The stimulus has the form: if studied then passed; Sara passed; therefore Sara studied. It concludes the 'if' part from the 'then' part — affirming the consequent, which is invalid. Option A has exactly this form: if made with sugar then tastes sweet; this tastes sweet; therefore made with sugar. So A is flawed in the same way. Option B is valid (if studied then passed; Tom studied; so Tom passed). Option C is a DIFFERENT flaw — denying the antecedent (Bea did not study, so did not pass). Option D is valid (no careless worker was promoted; Sam was promoted; so Sam was not careless). Only A matches the stimulus's structure.",
+      "distractor_rationales": {
+        "A": "Correct: same form as the stimulus — affirms the consequent (tastes sweet, therefore made with sugar).",
+        "B": "Valid argument (affirms the antecedent / modus ponens). Chosen by matching the studying-and-passing wording instead of the logical form.",
+        "C": "A genuine fallacy, but a DIFFERENT one — denying the antecedent. Chosen by solvers who notice it is flawed without identifying that the stimulus specifically affirms the consequent.",
+        "D": "Valid argument (modus tollens form). Chosen by matching the negative conclusion or mistaking a valid argument for a flawed one."
+      },
+      "expected_time_seconds": 150,
+      "minimum_reasonable_seconds": 35,
+      "timing_affects_score": false,
+      "visual_asset_required": false,
+      "visual_asset_id": null,
+      "visual_asset_spec": {
+        "type": "text",
+        "main_figure_description": "No figure. Render the stimulus argument as one short quoted block, then the instruction, then the four option arguments each as a single short sentence-group. Keep each option to one line where possible; use consistent sentence rhythm across options so structure, not wording, stands out. Do not bold any logical words.",
+        "option_descriptions": {
+          "A": "Argument about sugar and sweetness concluding the pudding has sugar.",
+          "B": "Argument concluding Tom passed because he studied.",
+          "C": "Argument concluding Bea did not pass because she did not study.",
+          "D": "Argument concluding Sam was not careless because he was promoted."
+        },
+        "recommended_width": null,
+        "recommended_height": null,
+        "mobile_behavior": "Stimulus plus four one-sentence arguments. Render options single-column full-width on mobile; keep each argument short enough to avoid wrapping past two lines. This item carries the most reading, so generous line spacing is important.",
+        "alt_text": "A flawed sample argument followed by four candidate arguments, asking which has the same flawed structure."
+      },
+      "display_spec": {
+        "component_type": "ParallelReasoningQuestion",
+        "desktop_answer_columns": 1,
+        "mobile_answer_columns": 1,
+        "zoom_enabled": false,
+        "auto_advance": false,
+        "answer_change_allowed": true
+      },
+      "construct_rationale": "Parallel-reasoning (and parallel-flaw) items measure the ability to abstract argument form and reason about logical structure independent of content — one of the most demanding verbal-reasoning skills, drawing on deductive reasoning rather than vocabulary or recall.",
+      "knowledge_requirements": "None. All content is everyday; no knowledge of formal logic terms is required, and the stimulus is identified as flawed so the task is structural matching.",
+      "ambiguity_review": {
+        "single_answer_confirmed": true,
+        "alternative_rule_checked": true,
+        "notes": "Formalize with P = antecedent, Q = consequent. Stimulus: P->Q; Q; therefore P (affirming the consequent, invalid). A: sugar->sweet; sweet; therefore sugar = P->Q; Q; therefore P (same flaw) — MATCH. B: studied->passed; studied; therefore passed = P->Q; P; therefore Q (modus ponens, valid) — different. C: studied->passed; not studied; therefore not passed = P->Q; not P; therefore not Q (denying the antecedent, a DIFFERENT invalid form) — different. D: 'no careless worker was promoted' = careless -> not promoted, i.e. promoted -> not careless; Sam promoted; therefore not careless = modus ponens on the contrapositive form (valid) — different. Exactly one option (A) shares the stimulus's form. B and D are valid (so not 'flawed in the same way'); C is flawed but by a distinct mechanism. The single correct answer is forced by structure, not interpretation."
+      },
+      "source_basis": [
+        "Parallel-reasoning and parallel-flaw argument analysis (analytical/logical-reasoning item tradition)",
+        "Affirming the consequent versus denying the antecedent as distinct conditional fallacies (conditional-reasoning research; standard fallacy taxonomy)"
+      ],
+      "review_status": "reviewed"
     }
   ]
 }
