@@ -8,6 +8,7 @@ import {
 } from '../services/quizService.js';
 import { checkCorrect, calculateScore } from '../lib/scoringUtils.js';
 import { computeIq } from '../lib/iqScoring.js';
+import { getVisual } from '../components/quiz/VisualQuestion.jsx';
 
 // ─── Session persistence ──────────────────────────────────────────────────────
 // Stored per browser tab (sessionStorage clears on tab close, not on refresh).
@@ -172,7 +173,13 @@ export default function QuizPage() {
 
   // ── Derived values ────────────────────────────────────────────
   const q          = questions[current];
-  const options    = parseOptions(q);
+  const vis        = getVisual(q.code);
+  const visOpts    = vis?.options;
+  // Visual items with SVG option tiles build options from the registry; everything
+  // else (text questions + visual items with text options) uses the DB columns.
+  const options    = visOpts
+    ? ['A', 'B', 'C', 'D'].map((k) => ({ key: k, svg: visOpts[k] }))
+    : parseOptions(q);
   const sel        = picked[q.id];
   const isLast     = current === questions.length - 1;
   const progress   = Math.round(((current + 1) / questions.length) * 100);
@@ -273,7 +280,7 @@ export default function QuizPage() {
         </div>
 
         {/* Question prompt */}
-        <h2 className="quiz-start-h" style={{ marginBottom: options.length ? 24 : 16 }}>
+        <h2 className="quiz-start-h" style={{ marginBottom: options.length ? 20 : 16 }}>
           {prompt || (
             <span style={{ color: 'var(--muted)', fontStyle: 'italic', fontWeight: 400 }}>
               Question text unavailable
@@ -281,21 +288,71 @@ export default function QuizPage() {
           )}
         </h2>
 
+        {/* Visual stimulus (figure) for visual questions */}
+        {vis?.figure && (
+          <div
+            style={{
+              maxWidth: 300,
+              margin: '0 auto 22px',
+              padding: 14,
+              border: `1px solid var(--line, ${'#eceff4'})`,
+              borderRadius: 12,
+              background: '#fff',
+            }}
+          >
+            {vis.figure}
+          </div>
+        )}
+
         {/* Answer options */}
         {options.length > 0 && (
-          <div className="opt-list">
-            {options.map((o) => (
-              <button
-                key={o.key}
-                className={`opt${sel === o.key ? ' sel' : ''}`}
-                onClick={() => !advancing && setPicked((p) => ({ ...p, [q.id]: o.key }))}
-                disabled={advancing}
-              >
-                <b>{o.key}</b>
-                {o.label}
-              </button>
-            ))}
-          </div>
+          visOpts ? (
+            // Visual option tiles (2x2 grid of SVGs)
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: 12,
+                marginBottom: 4,
+              }}
+            >
+              {options.map((o) => (
+                <button
+                  key={o.key}
+                  type="button"
+                  onClick={() => !advancing && setPicked((p) => ({ ...p, [q.id]: o.key }))}
+                  disabled={advancing}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '12px 14px',
+                    borderRadius: 12,
+                    border: `2px solid ${sel === o.key ? 'var(--signal)' : 'var(--line, #e4e8ef)'}`,
+                    background: sel === o.key ? 'rgba(46,108,246,0.06)' : '#fff',
+                    cursor: advancing ? 'not-allowed' : 'pointer',
+                  }}
+                >
+                  <b style={{ color: 'var(--signal)', fontSize: 14 }}>{o.key}</b>
+                  <span style={{ flex: 1, maxWidth: 84 }}>{o.svg}</span>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="opt-list">
+              {options.map((o) => (
+                <button
+                  key={o.key}
+                  className={`opt${sel === o.key ? ' sel' : ''}`}
+                  onClick={() => !advancing && setPicked((p) => ({ ...p, [q.id]: o.key }))}
+                  disabled={advancing}
+                >
+                  <b>{o.key}</b>
+                  {o.label}
+                </button>
+              ))}
+            </div>
+          )
         )}
 
         {/* Save error */}
