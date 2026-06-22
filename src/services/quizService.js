@@ -22,18 +22,16 @@ export async function createSession({ email, age, gender }) {
     console.warn('[quizService] createSession: Supabase not configured.');
     return { sessionId: null, error: null };
   }
-  const { data, error } = await supabase
-    .from('test_sessions')
-    .insert({
-      email:  email  ?? null,
-      age:    age    ?? null,
-      gender: gender ?? null,
-    })
-    .select('id')
-    .single();
+  // Created via a SECURITY DEFINER RPC so anon never needs read access to
+  // test_sessions (keeps customer email/age/gender private). Returns the new id.
+  const { data, error } = await supabase.rpc('create_test_session', {
+    p_email:  email  ?? null,
+    p_age:    age    ?? null,
+    p_gender: gender ?? null,
+  });
 
   if (error) console.error('[quizService] createSession:', error.message);
-  return { sessionId: data?.id ?? null, error };
+  return { sessionId: data ?? null, error };
 }
 
 // ─── answers ──────────────────────────────────────────────────────────────────

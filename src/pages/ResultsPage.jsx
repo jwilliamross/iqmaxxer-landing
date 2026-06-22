@@ -198,6 +198,9 @@ export default function ResultsPage() {
               >
                 Unlock Full Report <span className="arrow">→</span>
               </button>
+              <p style={{ textAlign: 'center', fontSize: 11.5, color: 'var(--muted)', marginTop: 10 }}>
+                🔒 Secure checkout · One-time payment · 30-day money-back guarantee
+              </p>
             </div>
           </div>
         )}
